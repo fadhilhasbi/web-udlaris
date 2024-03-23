@@ -51,7 +51,7 @@ class ProductResource extends Resource
                                     ->label('Nama Produk')
                                     ->live(onBlur: true)
                                     ->required()
-                                    ->unique()
+                                    ->unique(ignoreRecord: true)
                                     ->afterStateUpdated(function (string $operation, $state, Set $set) {
                                         if ($operation !== 'create') {
                                             return;
