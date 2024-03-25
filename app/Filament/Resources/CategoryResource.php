@@ -59,7 +59,8 @@ class CategoryResource extends Resource
                             TextInput::make('slug')
                                 ->disabled()
                                 ->dehydrated()
-                                ->required(),
+                                ->required()
+                                ->unique(Category::class, 'slug', ignoreRecord: true),
 
                             MarkdownEditor::make('description')
                                 ->columnSpanFull()
