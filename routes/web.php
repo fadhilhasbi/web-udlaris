@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\HomePage;
+use App\Livewire\X3dViewer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomePage::class)->name('home');
+Route::get('/kustomisasi', X3dViewer::class);
 
 Route::middleware([
     'auth:sanctum',
