@@ -7,7 +7,6 @@ use App\Livewire\HomePage;
 use App\Livewire\ProductCustomPage;
 use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
-use App\Livewire\HomePage;
 use App\Livewire\ProductDetailPage;
 use App\Livewire\ProductsPage;
 
