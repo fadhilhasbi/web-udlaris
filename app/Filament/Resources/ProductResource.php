@@ -89,7 +89,7 @@ class ProductResource extends Resource
                                 TextInput::make('sku')
                                     ->label('Kode Barang (SKU)')
                                     ->required()
-                                    ->unique(),
+                                    ->unique(ignoreRecord: true),
                                 TextInput::make('quantity')
                                     ->label('Jumlah Tersedia')
                                     ->required()
@@ -119,7 +119,7 @@ class ProductResource extends Resource
                         Section::make('Gambar Produk')
                             ->schema([
                                 FileUpload::make('image')
-                                    ->directory('form-attachments/product-images')
+                                    ->directory('form-attachment/image/product')
                                     ->image()
                                     ->multiple()
                             ])->collapsible(),

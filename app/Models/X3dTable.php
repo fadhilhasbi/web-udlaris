@@ -17,5 +17,7 @@ class X3dTable extends Model
         'kaki_filepath' => 'array',
         'papan_originalname' => 'array',
         'kaki_originalname' => 'array',
+        'papan_texture_filepath' => 'array',
+        'kaki_texture_filepath' => 'array',
     ];
 }

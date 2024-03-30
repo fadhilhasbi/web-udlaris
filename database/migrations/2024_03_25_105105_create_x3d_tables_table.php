@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('kaki_filepath')->nullable();
             $table->longText('papan_originalname')->nullable();
             $table->longText('kaki_originalname')->nullable();
+            $table->longText('papan_texture_filepath')->nullable();
+            $table->longText('kaki_texture_filepath')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

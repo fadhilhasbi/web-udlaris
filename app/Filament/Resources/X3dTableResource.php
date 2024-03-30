@@ -61,16 +61,30 @@ class X3dTableResource extends Resource
                         Section::make('Upload 3D Papan Model')
                             ->schema([
                                 FileUpload::make('papan_filepath')
-                                    ->directory('form-attachment/meja/papan')
+                                    ->directory('form-attachment/x3d/meja/papan')
                                     ->multiple()
                                     ->storeFileNamesIn('papan_originalname')
                             ])->collapsible(),
                         Section::make('Upload 3D Kaki Model')
                             ->schema([
                                 FileUpload::make('kaki_filepath')
-                                    ->directory('form-attachment/meja/kaki')
+                                    ->directory('form-attachment/x3d/meja/kaki')
                                     ->multiple()
                                     ->storeFileNamesIn('kaki_originalname')
+                            ])->collapsible(),
+                        Section::make('Upload Image Texture Papan Model')
+                            ->schema([
+                                FileUpload::make('papan_texture_filepath')
+                                    ->directory('form-attachment/x3d/meja/papan')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                            ])->collapsible(),
+                        Section::make('Upload Image Texture Kaki Model')
+                            ->schema([
+                                FileUpload::make('kaki_texture_filepath')
+                                    ->directory('form-attachment/x3d/meja/kaki')
+                                    ->multiple()
+                                    ->preserveFilenames()
                             ])->collapsible(),
                     ]),
 
