@@ -89,7 +89,7 @@ class ProductResource extends Resource
                                 TextInput::make('sku')
                                     ->label('Kode Barang (SKU)')
                                     ->required()
-                                    ->unique(),
+                                    ->unique(ignoreRecord: true),
                                 TextInput::make('quantity')
                                     ->label('Jumlah Tersedia')
                                     ->required()
