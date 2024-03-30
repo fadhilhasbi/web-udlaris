@@ -1,5 +1,5 @@
 <div>
-    <section class="mb-40 overflow-hidden">
+    <section class="overflow-hidden">
         <!-- Background image -->
         <div
             class="relative overflow-hidden bg-cover bg-no-repeat bg-[50%] h-[500px] bg-[url('https://img.archiexpo.com/images_ae/photo-g/11279-18521817.webp')]">
@@ -11,7 +11,8 @@
                             Cocokan kebutuhanmu dengan <br /><span>kustomisasi</span>
                         </h1>
                         <a class="mb-2 inline-block rounded-full border-2 border-neutral-50 px-[46px] pt-[14px] pb-[12px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 md:mr-2 md:mb-0"
-                            data-te-ripple-init data-te-ripple-color="light" href="/product-custom" wire:navigate role="button">Mulai
+                            data-te-ripple-init data-te-ripple-color="light" href="/product-custom" wire:navigate
+                            role="button">Mulai
                             kustomisasi</a>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
             </div>
 
             <div class="mt-10 grid grid-cols-2 gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
-                @foreach ($products as $product)
+                {{-- @foreach ($products as $product)
                     <article class="relative" wire:key="{{ $product->id }}">
                         <div class="aspect-square overflow-hidden">
                             <img class="group-hover:scale-125 h-full w-full object-cover transition-all duration-300"
@@ -98,61 +99,63 @@
                             </div>
                         </div>
                     </article>
-                @endforeach
+                @endforeach --}}
 
                 {{-- without discount if needed later uncomment this code --}}
-                {{-- <article class="relative">
-                    <div class="aspect-square overflow-hidden">
-                        <img class="group-hover:scale-125 h-full w-full object-cover transition-all duration-300"
-                            src="/images/sUgmRNIkRW2SZCLKOOfX2.png" alt="" />
-                    </div>
-                    <div class="mt-4 flex items-start justify-between">
-                        <div class="">
-                            <h3 class="text-xs font-semibold sm:text-sm md:text-base">
-                                <a href="#" title="" class="cursor-pointer">
-                                    Albanian Essence
-                                    <span class="absolute" aria-hidden="true"></span>
-                                </a>
-                            </h3>
-                            <div class="mt-2 flex items-center">
-                                <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        class=""></path>
-                                </svg>
-                                <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        class=""></path>
-                                </svg>
-                                <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        class=""></path>
-                                </svg>
-                                <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        class=""></path>
-                                </svg>
-                                <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                                        class=""></path>
-                                </svg>
+                @foreach ($products as $product)
+                    <article class="relative">
+                        <div class="aspect-square overflow-hidden">
+                            <img class="group-hover:scale-125 h-full w-full object-cover transition-all duration-300"
+                                src="{{ url('storage', $product->image[0]) }}" alt="" />
+                        </div>
+                        <div class="mt-4 flex items-start justify-between">
+                            <div class="">
+                                <h3 class="text-xs font-semibold sm:text-sm md:text-base">
+                                    <a href="#" title="" class="cursor-pointer">
+                                        {{ $product->name }}
+                                        <span class="absolute" aria-hidden="true"></span>
+                                    </a>
+                                </h3>
+                                <div class="mt-2 flex items-center">
+                                    <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                            class=""></path>
+                                    </svg>
+                                    <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                            class=""></path>
+                                    </svg>
+                                    <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                            class=""></path>
+                                    </svg>
+                                    <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                            class=""></path>
+                                    </svg>
+                                    <svg class="block h-3 w-3 align-middle text-black sm:h-4 sm:w-4"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                            class=""></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="text-xs font-normal sm:text-sm md:text-base">@currency($product->price)</p>
                             </div>
                         </div>
-
-                        <div class="text-right">
-                            <p class="text-xs font-normal sm:text-sm md:text-base">$299.00</p>
-                        </div>
-                    </div>
-                </article> --}}
+                    </article>
+                @endforeach
 
             </div>
         </div>
