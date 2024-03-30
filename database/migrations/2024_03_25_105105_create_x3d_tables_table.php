@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('thumbnail')->nullable();
             $table->longText('papan_filepath')->nullable();
             $table->longText('kaki_filepath')->nullable();
             $table->longText('papan_originalname')->nullable();

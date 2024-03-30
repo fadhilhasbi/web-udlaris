@@ -1,8 +1,9 @@
 <?php
 
+use App\Livewire\CustomTableMejaPanjang;
+use App\Livewire\CustomTablePage;
 use App\Livewire\HomePage;
 use App\Livewire\ProductCustomPage;
-use App\Livewire\X3dViewer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomePage::class)->name('home');
-Route::get('/kustomisasi', X3dViewer::class);
 Route::get('/product-custom', ProductCustomPage::class);
+Route::get('/product-custom/meja', CustomTablePage::class);
+Route::get('/product-custom/meja/meja-panjang', CustomTableMejaPanjang::class);
 
 Route::middleware([
     'auth:sanctum',

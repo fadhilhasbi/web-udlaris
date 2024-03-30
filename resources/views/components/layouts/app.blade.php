@@ -8,9 +8,11 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'> </script>
 
         <!-- Styles -->
         @livewireStyles
+        <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link>
     </head>
     <body>
         @livewire('partials.navbar')

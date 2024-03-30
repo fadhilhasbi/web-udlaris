@@ -2,19 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\X3dTable;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
+use App\Models\X3dTable;
+use Livewire\Attributes\Title;
 
-class X3dViewer extends Component
+class CustomTableMejaPanjang extends Component
 {
-    #[Title('X3D Viewer - UD Laris')]
-    #[Layout('components.layouts.xthreed')]
+    #[Title('Kustomisasi Tipe Meja Panjang - UD Laris')]
     public function render()
     {
         $x3d_tables = X3dTable::where('is_active',1)->get();
-        return view('livewire.x3d-viewer', [
+        return view('livewire.custom-table-meja-panjang', [
             'x3d_tables'=> $x3d_tables,
         ]);
     }

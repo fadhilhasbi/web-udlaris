@@ -58,6 +58,19 @@ class X3dTableResource extends Resource
                                     ->required()
                                     ->unique(X3dTable::class, 'slug', ignoreRecord: true),
                             ])->columns(3),
+                        Section::make([
+                            FileUpload::make('thumbnail')
+                                ->image()
+                                ->directory('form-attachment/image/custom-table-thumbnail')
+                        ])
+                    ]),
+
+                Group::make()
+                    ->schema([
+                        Section::make('Status')
+                            ->schema([
+                                Toggle::make('is_active'),
+                            ]),
                         Section::make('Upload 3D Papan Model')
                             ->schema([
                                 FileUpload::make('papan_filepath')
@@ -86,14 +99,6 @@ class X3dTableResource extends Resource
                                     ->multiple()
                                     ->preserveFilenames()
                             ])->collapsible(),
-                    ]),
-
-                Group::make()
-                    ->schema([
-                        Section::make('Status')
-                            ->schema([
-                                Toggle::make('is_active'),
-                            ]),
                     ])
             ]);
     }
