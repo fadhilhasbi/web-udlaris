@@ -163,59 +163,104 @@
     {{-- Featured End --}}
 
     {{-- Category Start --}}
-    <div class="bg-orange-200 py-20">
-        <div class="max-w-xl mx-auto">
-            <div class="text-center ">
-                <div class="relative flex flex-col items-center">
-                    <h1 class="text-5xl font-bold dark:text-gray-200"> Browse <span class="text-blue-500"> Categories
-                        </span> </h1>
-                    <div class="flex w-40 mt-2 mb-6 overflow-hidden rounded">
-                        <div class="flex-1 h-2 bg-blue-200">
+    <section>
+        <div class="bg-orange-200 py-20">
+            <div class="max-w-xl mx-auto">
+                <div class="text-center ">
+                    <div class="relative flex flex-col items-center">
+                        <h1 class="text-5xl font-bold dark:text-gray-200"> Browse <span class="text-blue-500">
+                                Categories
+                            </span> </h1>
+                        <div class="flex w-40 mt-2 mb-6 overflow-hidden rounded">
+                            <div class="flex-1 h-2 bg-blue-200">
+                            </div>
+                            <div class="flex-1 h-2 bg-blue-400">
+                            </div>
+                            <div class="flex-1 h-2 bg-blue-600">
+                            </div>
                         </div>
-                        <div class="flex-1 h-2 bg-blue-400">
-                        </div>
-                        <div class="flex-1 h-2 bg-blue-600">
+                    </div>
+                    <p class="mb-12 text-base text-center text-gray-500">
+                        Sedang cari apa? Pilih produk yang kamu butuhkan sesuai kategori yang tersedia sebagai berikut.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+
+                    @foreach ($categories as $category)
+                        <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            href="{{ $category->slug }}" wire:key="{{ $category->id }}">
+                            <div class="p-4 md:p-5">
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <img class="h-[2.375rem] w-[2.375rem] rounded-full"
+                                            src="{{ url('storage', $category->thumbnail) }}"
+                                            alt="{{ $category->name }}">
+                                        <div class="ms-3">
+                                            <h3
+                                                class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200">
+                                                {{ $category->name }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="ps-3">
+                                        <svg class="flex-shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="m9 18 6-6-6-6" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- Category End --}}
+
+    {{-- Contact Start --}}
+    <section class="bg-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
+            <div class="max-w-2xl lg:max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Kunjungi Toko Kami</h2>
+                <p class="mt-4 text-lg text-gray-500">Pemesanan secara langsung melalui deskripsi lokasi berikut.</p>
+            </div>
+            <div class="mt-16 lg:mt-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="rounded-lg overflow-hidden">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.9649401017837!2d110.39056077588643!3d-7.79353687735167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59d863f76fe1%3A0xe66f801a04458620!2sUD.%20Laris!5e0!3m2!1sid!2sid!4v1711765255859!5m2!1sid!2sid"
+                            width="100%" height="480" style="border:0;" allowfullscreen=""
+                            loading="lazy"></iframe>
+                    </div>
+                    <div>
+                        <div class="max-w-full mx-auto rounded-lg overflow-hidden">
+                            <div class="px-6 py-4">
+                                <h3 class="text-lg font-medium text-gray-900">Alamat Toko</h3>
+                                <p class="mt-1 text-gray-600">Jl. Ipda Tut Harsono, Muja Muju, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55165</p>
+                            </div>
+                            <div class="border-t border-gray-200 px-6 py-4">
+                                <h3 class="text-lg font-medium text-gray-900">Jam Buka</h3>
+                                <p class="mt-1 text-gray-600">Senin - Jumat: 09.00 - 17.00</p>
+                                <p class="mt-1 text-gray-600">Sabtu: 10.00 - 16.00</p>
+                                <p class="mt-1 text-gray-600">Minggu: Tutup</p>
+                            </div>
+                            <div class="border-t border-gray-200 px-6 py-4">
+                                <h3 class="text-lg font-medium text-gray-900">Kontak</h3>
+                                <p class="mt-1 text-gray-600">Email: udlarisjogja@hotmail.com</p>
+                                <p class="mt-1 text-gray-600">Phone: +62 877 3878 0947</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <p class="mb-12 text-base text-center text-gray-500">
-                    Sedang cari apa? Pilih produk yang kamu butuhkan sesuai kategori yang tersedia sebagai berikut.
-                </p>
             </div>
         </div>
-
-        <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-
-                @foreach ($categories as $category)
-                    <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                        href="{{ $category->slug }}" wire:key="{{ $category->id }}">
-                        <div class="p-4 md:p-5">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <img class="h-[2.375rem] w-[2.375rem] rounded-full"
-                                        src="{{ url('storage', $category->thumbnail) }}" alt="{{ $category->name }}">
-                                    <div class="ms-3">
-                                        <h3
-                                            class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200">
-                                            {{ $category->name }}
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="ps-3">
-                                    <svg class="flex-shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m9 18 6-6-6-6" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-
-            </div>
-        </div>
-    </div>
-    {{-- Category End --}}
+    </section>
+    {{-- Contact End --}}
 </div>
