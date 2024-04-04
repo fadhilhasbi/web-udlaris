@@ -8,16 +8,16 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireScripts
 
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body>
+    <body  x-data="{darkMode: $persist(false)}" :class="{'dark': darkMode === true }" class="antialiased">
         @livewire('partials.navbar')
         <main>
             {{ $slot }}
         </main>
         @livewire('partials.footer')
-        @livewireScripts
     </body>
 </html>
