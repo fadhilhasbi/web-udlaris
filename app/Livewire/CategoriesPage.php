@@ -6,9 +6,9 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\Title;
 
+#[Title('Categories - UD Laris')]
 class CategoriesPage extends Component
 {
-    #[Title('Categories - UD Laris')]
     public function render()
     {
         $categories = Category::all();

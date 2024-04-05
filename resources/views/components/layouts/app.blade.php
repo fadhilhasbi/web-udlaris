@@ -13,7 +13,7 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body  x-data="{darkMode: $persist(false)}" :class="{'dark': darkMode === true }" class="antialiased">
+    <body x-cloak x-data="{darkMode: $persist(false)}" :class="{'dark': darkMode === true }" class="antialiased">
         @livewire('partials.navbar')
         <main>
             {{ $slot }}

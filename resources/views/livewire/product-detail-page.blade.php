@@ -1,6 +1,4 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-    @foreach ($products as $product)
-    @endforeach
     <section class="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
         <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
             <div class="flex flex-wrap -mx-4">
@@ -10,24 +8,12 @@
                             <img x-bind:src="mainImage" alt="" class="object-cover w-full lg:h-full ">
                         </div>
                         <div class="flex-wrap hidden md:flex ">
-                            <div class="w-1/2 p-2 sm:w-1/4"
-                                x-on:click="mainImage='{{ url('storage', $product->image[0]) }}'">
-                                <img src="{{ url('storage', $product->image[0]) }}" alt=""
-                                    class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                            </div>
-
-                            <div class="w-1/2 p-2 sm:w-1/4"
-                                x-on:click="mainImage='{{ url('storage', $product->image[1]) }}'">
-                                <img src="{{ url('storage', $product->image[1]) }}" alt=""
-                                    class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                            </div>
-
-                            <div class="w-1/2 p-2 sm:w-1/4"
-                                x-on:click="mainImage='{{ url('storage', $product->image[2]) }}'">
-                                <img src="{{ url('storage', $product->image[2]) }}" alt=""
-                                    class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                            </div>
-
+                            @foreach ($product->image as $image)
+                                <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='{{ url('storage', $image) }}'">
+                                    <img src="{{ url('storage', $image) }}" alt="{{ $product->name }}"
+                                        class="object-cover w-full cursor-pointer lg:h-20 hover:border hover:border-blue-500">
+                                </div>
+                            @endforeach
                         </div>
                         <div class="px-6 pb-6 mt-6 border-t border-gray-300 dark:border-gray-400 ">
                             <div class="flex flex-wrap items-center mt-6">
@@ -51,7 +37,9 @@
                             <h2 class="max-w-xl mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
                                 {{ $product->name }}</h2>
                             <p class="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-                                <span>@currency($product->price)</span>
+                                <span>
+                                    {{ Number::currency($product->price, 'IDR') }}
+                                </span>
                                 {{-- <span
                                     class="text-base font-normal text-gray-500 line-through dark:text-gray-400">Rp. 83.999</span> --}}
                             </p>

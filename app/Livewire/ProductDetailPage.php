@@ -6,14 +6,19 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
+#[Title('Produk Detail - UD Laris')]
 class ProductDetailPage extends Component
 {
-    #[Title('Produk Detail - UD Laris')]
+    public $slug;
+
+    public function mount ($slug) {
+        $this->slug = $slug;
+    }
+
     public function render()
     {
-        $products = Product::all();
         return view('livewire.product-detail-page', [
-            'products'=> $products,
+            'product'=> Product::where('slug', $this->slug)->firstOrFail(),
         ]);
     }
 }
