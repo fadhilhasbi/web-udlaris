@@ -101,8 +101,12 @@ class ProductResource extends Resource
                     ->schema([
                         Section::make('Status')
                             ->schema([
-                                Toggle::make('is_active'),
+                                Toggle::make('is_active')
+                                ->default(true),
                                 Toggle::make('is_featured'),
+                                Toggle::make('in_stock')
+                                ->default(true),
+                                Toggle::make('on_sale'),
                                 DatePicker::make('published_at')
                                     ->columnSpan('full')
                                     ->default(now())
@@ -113,6 +117,7 @@ class ProductResource extends Resource
                                 Select::make('categories')
                                 ->helperText('Sesuaikan produk dengan kategori')
                                 ->multiple()
+                                ->preload()
                                 ->relationship('categories', 'name')
                                 ->required()
                             ]),
