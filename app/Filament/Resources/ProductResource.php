@@ -149,6 +149,10 @@ class ProductResource extends Resource
                     ->boolean(),
                 IconColumn::make('is_featured')
                     ->boolean(),
+                IconColumn::make('in_stock')
+                    ->boolean(),
+                IconColumn::make('on_sale')
+                    ->boolean(),
                 TextColumn::make('published_at')
                     ->sortable()
             ])
