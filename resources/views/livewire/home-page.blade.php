@@ -1,84 +1,53 @@
 <div>
+    <!-- Slider -->
     <section class="overflow-hidden">
-        <!-- Background image -->
-        <div
-            class="relative overflow-hidden bg-cover bg-no-repeat bg-[50%] h-[500px] bg-[url('https://img.archiexpo.com/images_ae/photo-g/11279-18521817.webp')]">
-            <div
-                class="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed bg-[hsla(0,0%,0%,0.75)]">
-                <div class="flex items-center justify-center h-full">
-                    <div class="px-6 text-center text-white md:px-12">
-                        <h1 class="mt-6 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
-                            Sesuaikan kebutuhanmu dengan <br /><span>kustomisasi</span>
-                        </h1>
-                        <a class="mb-2 inline-block rounded-full border-2 border-neutral-50 px-[46px] pt-[14px] pb-[12px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 md:mr-2 md:mb-0"
-                            data-te-ripple-init data-te-ripple-color="light" href="/product-custom" wire:navigate
-                            role="button">Mulai
-                            kustomisasi</a>
-                    </div>
+        <div data-hs-carousel='{
+            "loadingClasses": "opacity-0",
+            "isAutoPlay": "true",
+            "speed": "3000"
+          }'
+            class="relative">
+            <div class="hs-carousel relative overflow-hidden h-[500px]">
+                <div
+                    class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+                    @foreach ($slides as $slide)
+                        @php
+                            $bgImage = url('storage', $slide->image);
+                        @endphp
+                        <div class="bg-cover bg-no-repeat bg-[50%]" style="background-image: url('{{ $bgImage }}')">
+                            <div class="h-full w-full overflow-hidden bg-fixed bg-[hsla(0,0%,0%,0.75)]">
+                                <div class="hs-carousel-slide flex items-center justify-center h-full">
+                                    <div class="px-6 text-center text-white md:px-12">
+                                        <h1
+                                            class="mt-6 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
+                                            {{ $slide->title }}
+                                        </h1>
+                                        <a class="mb-2 inline-block rounded-full border-2 border-neutral-50 px-[46px] pt-[14px] pb-[12px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 md:mr-2 md:mb-0"
+                                            data-te-ripple-init data-te-ripple-color="light" href="/product-custom"
+                                            wire:navigate role="button">Mulai
+                                            kustomisasi</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
+
+            {{-- <div>
+                <button type="button" class="hs-carousel-prev">
+                    <span aria-hidden="true">«</span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button type="button" class="hs-carousel-next">
+                    <span class="sr-only">Next</span>
+                    <span aria-hidden="true">»</span>
+                </button>
+            </div> --}}
         </div>
     </section>
-
-    <!-- Slider -->
-    <div data-hs-carousel='{
-    "loadingClasses": "opacity-0",
-    "isAutoPlay": true
-  }' class="relative">
-        <div class="hs-carousel relative overflow-hidden w-full min-h-[350px] bg-white">
-            <div
-                class="absolute top-0 bottom-0 flex transition-transform duration-700 opacity-0 hs-carousel-body start-0 flex-nowrap">
-                <div class="hs-carousel-slide">
-                    <div class="flex justify-center h-full p-6 bg-gray-100">
-                        <span class="self-center text-4xl transition duration-700">First slide</span>
-                    </div>
-                </div>
-                <div class="hs-carousel-slide">
-                    <div class="flex justify-center h-full p-6 bg-gray-200">
-                        <span class="self-center text-4xl transition duration-700">Second slide</span>
-                    </div>
-                </div>
-                <div class="hs-carousel-slide">
-                    <div class="flex justify-center h-full p-6 bg-gray-300">
-                        <span class="self-center text-4xl transition duration-700">Third slide</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button type="button"
-            class="hs-carousel-prev hs-carousel:disabled:opacity-50 disabled:pointer-events-none absolute inset-y-0 start-0 inline-flex justify-center items-center w-[46px] h-full text-gray-800 hover:bg-gray-800/[.1]">
-            <span class="text-2xl" aria-hidden="true">
-                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                </svg>
-            </span>
-            <span class="sr-only">Previous</span>
-        </button>
-        <button type="button"
-            class="hs-carousel-next hs-carousel:disabled:opacity-50 disabled:pointer-events-none absolute inset-y-0 end-0 inline-flex justify-center items-center w-[46px] h-full text-gray-800 hover:bg-gray-800/[.1]">
-            <span class="sr-only">Next</span>
-            <span class="text-2xl" aria-hidden="true">
-                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                </svg>
-            </span>
-        </button>
-
-        <div class="absolute flex justify-center space-x-2 hs-carousel-pagination bottom-3 start-0 end-0">
-            <span
-                class="border border-gray-400 rounded-full cursor-pointer hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3"></span>
-            <span
-                class="border border-gray-400 rounded-full cursor-pointer hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3"></span>
-            <span
-                class="border border-gray-400 rounded-full cursor-pointer hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3"></span>
-        </div>
-    </div>
     <!-- End Slider -->
+
 
     {{-- Featured Start --}}
     <section class="py-12 text-gray-700 bg-white sm:py-16 lg:py-20">
@@ -244,7 +213,7 @@
 
                     @foreach ($categories as $category)
                         <a class="flex flex-col transition bg-white border shadow-sm group rounded-xl hover:shadow-md"
-                            href="{{ $category->slug }}" wire:key="{{ $category->id }}">
+                            href="/products?selected_categories[0]={{ $category->id }}" wire:key="{{ $category->id }}">
                             <div class="p-4 md:p-5">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
