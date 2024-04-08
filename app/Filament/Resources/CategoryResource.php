@@ -83,7 +83,7 @@ class CategoryResource extends Resource
                         Section::make([
                             FileUpload::make('thumbnail')
                                 ->image()
-                                ->directory('category-thumbnails')
+                                ->directory('form-attachment/image/category-thumbnail')
                         ])
                     ])
             ]);

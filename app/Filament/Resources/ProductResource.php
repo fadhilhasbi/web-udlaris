@@ -124,7 +124,7 @@ class ProductResource extends Resource
                         Section::make('Gambar Produk')
                             ->schema([
                                 FileUpload::make('image')
-                                    ->directory('form-attachments/product-images')
+                                    ->directory('form-attachment/image/product')
                                     ->image()
                                     ->multiple()
                             ])->collapsible(),

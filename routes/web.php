@@ -1,10 +1,14 @@
 <?php
 
+use App\Livewire\CustomTableMejaPanjang;
+use App\Livewire\CustomTablePage;
+use App\Livewire\HomePage;
+use App\Livewire\ProductCustomPage;
 use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
-use App\Livewire\HomePage;
 use App\Livewire\ProductDetailPage;
 use App\Livewire\ProductsPage;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +26,15 @@ Route::get('/', HomePage::class)->name('home');
 Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
+Route::get('/cart', CartPage::class);
+
+Route::get('/product-custom', ProductCustomPage::class);
+Route::get('/product-custom/meja', CustomTablePage::class);
+Route::get('/product-custom/meja/meja-panjang', CustomTableMejaPanjang::class);
+
+Route::get('/categories', CategoriesPage::class);
+Route::get('/products', ProductsPage::class);
+Route::get('/products/{product}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
 
 Route::middleware([

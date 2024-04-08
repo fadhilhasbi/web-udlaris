@@ -57,7 +57,6 @@
                 <p class="mt-4 text-base text-gray-700">Berbagai macam produk unggulan di UD Laris dengan harga
                     terjangkau</p>
             </div>
-
             <div class="grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:grid-cols-4 lg:gap-4">
                 {{-- @foreach ($products as $product)
                     <article class="relative" wire:key="{{ $product->id }}">
