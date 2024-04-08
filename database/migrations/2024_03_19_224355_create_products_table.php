@@ -26,6 +26,8 @@ return new class extends Migration
             $table->decimal('height', 10, 2);
             $table->boolean('is_active')->default(false);
             $table->boolean('is_featured')->default(false);
+            $table->boolean('in_stock')->default(true);
+            $table->boolean('on_sale')->default(true);
             $table->date('published_at');
             $table->timestamps();
         });

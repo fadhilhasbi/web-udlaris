@@ -14,12 +14,15 @@
         @livewireStyles
         <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link>
     </head>
-    <body>
+    <body x-cloak x-data="{darkMode: $persist(false)}" :class="{'dark': darkMode === true }" class="antialiased">
         @livewire('partials.navbar')
         <main>
             {{ $slot }}
         </main>
         @livewire('partials.footer')
+
         @livewireScripts
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <x-livewire-alert::scripts />
     </body>
 </html>
