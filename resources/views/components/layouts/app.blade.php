@@ -8,7 +8,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireScripts
 
         <!-- Styles -->
         @livewireStyles
@@ -19,5 +18,9 @@
             {{ $slot }}
         </main>
         @livewire('partials.footer')
+
+        @livewireScripts
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <x-livewire-alert::scripts />
     </body>
 </html>
