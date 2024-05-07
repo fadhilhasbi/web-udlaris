@@ -61,6 +61,10 @@ class User extends Authenticatable implements FilamentUser
         'profile_photo_url',
     ];
 
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->email == 'admin@admin.com'; //test only purpose
