@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\CheckoutPage;
 use App\Livewire\CustomTableMejaPanjang;
 use App\Livewire\CustomTablePage;
 use App\Livewire\HomePage;
@@ -27,6 +28,7 @@ Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
+Route::get('/checkout', CheckoutPage::class);
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
