@@ -193,7 +193,8 @@
                     </hr>
                 </div>
                 <button type="submit"
-                    class="bg-green-500 mt-4 w-full p-3 rounded-lg text-lg text-white hover:bg-green-600">
+                    class="bg-green-500 mt-4 w-full p-3 rounded-lg text-lg text-white hover:bg-green-600"
+                    id="pay-button">
                     Place Order
                 </button>
                 <div class="bg-white mt-4 rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
@@ -228,5 +229,15 @@
                 </div>
             </div>
         </div>
+        @if ($payment_method == 'midtrans' && isset($snapToken))
+            <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+                data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+            <script type="text/javascript">
+                document.getElementById('pay-button').onclick = function() {
+                    // SnapToken acquired from previous step
+                    snap.pay('{{ $snapToken }}');
+                };
+            </script>
+        @endif
     </form>
 </div>
