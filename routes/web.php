@@ -2,7 +2,7 @@
 
 use App\Livewire\CancelPage;
 use App\Livewire\CheckoutPage;
-use App\Livewire\CustomTableMejaPanjang;
+use App\Livewire\CustomCreateTablePage;
 use App\Livewire\CustomTablePage;
 use App\Livewire\HomePage;
 use App\Livewire\ProductCustomPage;
@@ -10,12 +10,19 @@ use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
 use App\Livewire\ProductDetailPage;
 use App\Livewire\ProductsPage;
+use App\Livewire\CustomCreateRakPage;
+use App\Livewire\CustomRakPage;
+use App\Livewire\CustomChairPage;
+use App\Livewire\CustomCabinetPage;
+use App\Livewire\CustomCreateChairPage;
+use App\Livewire\CustomCreateCabinetPage;
+
 
 use App\Livewire\SuccessPage;
 use Illuminate\Support\Facades\Route;
 
 /*
-|--------------------------------------------------------------------------
+|-------------------------------------------------------->>>>>>> develop------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -36,7 +43,13 @@ Route::get('/cancel', [CancelPage::class, 'cancel'])->name('cancel');
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
-Route::get('/product-custom/meja/meja-panjang', CustomTableMejaPanjang::class);
+Route::get('/product-custom/rak', CustomRakPage::class);
+Route::get('/product-custom/kursi', CustomChairPage::class);
+Route::get('/product-custom/lemari', CustomCabinetPage::class);
+Route::get('/product-custom/meja/{slug}', CustomCreateTablePage::class);
+Route::get('/product-custom/rak/{slug}', CustomCreateRakPage::class);
+Route::get('/product-custom/kursi/{slug}', CustomCreateChairPage::class);
+Route::get('/product-custom/lemari/{slug}', CustomCreateCabinetPage::class);
 
 Route::middleware([
     'auth:sanctum',

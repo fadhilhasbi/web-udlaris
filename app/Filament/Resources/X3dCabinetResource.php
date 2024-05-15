@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\X3dCabinetResource\Pages;
+use App\Filament\Resources\X3dCabinetResource\RelationManagers;
+use App\Models\X3dCabinet;
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
-use App\Models\X3dTable;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Group;
@@ -17,15 +17,14 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\X3dTableResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\X3dTableResource\RelationManagers;
 
-class X3dTableResource extends Resource
+class X3dCabinetResource extends Resource
 {
-    protected static ?string $model = X3dTable::class;
+    protected static ?string $model = X3dCabinet::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -56,12 +55,12 @@ class X3dTableResource extends Resource
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
-                                    ->unique(X3dTable::class, 'slug', ignoreRecord: true),
+                                    ->unique(X3dCabinet::class, 'slug', ignoreRecord: true),
                             ])->columns(3),
                         Section::make([
                             FileUpload::make('thumbnail')
                                 ->image()
-                                ->directory('form-attachment/image/custom-table-thumbnail')
+                                ->directory('form-attachment/image/custom-cabinet-thumbnail')
                         ])
                     ]),
 
@@ -71,45 +70,59 @@ class X3dTableResource extends Resource
                             ->schema([
                                 Toggle::make('is_active'),
                             ]),
-                        Section::make('Upload 3D Papan Model')
+                        Section::make('Upload 3D Model 1 ')
                             ->schema([
-                                FileUpload::make('papan_filepath')
-                                    ->directory('form-attachment/x3d/meja/papan')
+                                FileUpload::make('add1_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add1')
                                     ->multiple()
-                                    ->storeFileNamesIn('papan_originalname')
+                                    ->storeFileNamesIn('add1_originalname')
                             ])->collapsible(),
-                        Section::make('Upload 3D Kaki Model')
+                        Section::make('Upload 3D Model 2')
                             ->schema([
-                                FileUpload::make('kaki_filepath')
-                                    ->directory('form-attachment/x3d/meja/kaki')
+                                FileUpload::make('add2_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add2')
                                     ->multiple()
-                                    ->storeFileNamesIn('kaki_originalname')
+                                    ->storeFileNamesIn('add2_originalname')
                             ])->collapsible(),
-                        Section::make('Upload 3D Rak Model')
+                        Section::make('Upload 3D Model 3')
                             ->schema([
-                                FileUpload::make('rak_filepath')
-                                    ->directory('form-attachment/x3d/meja/rak')
+                                FileUpload::make('add3_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add3')
                                     ->multiple()
-                                    ->storeFileNamesIn('rak_originalname')
+                                    ->storeFileNamesIn('add3_originalname')
                             ])->collapsible(),
-                        Section::make('Upload Image Texture Papan Model')
+                        Section::make('Upload 3D Model 4')
                             ->schema([
-                                FileUpload::make('papan_texture_filepath')
-                                    ->directory('form-attachment/x3d/meja/papan')
+                                FileUpload::make('add4_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add4')
+                                    ->multiple()
+                                    ->storeFileNamesIn('add4_originalname')
+                            ])->collapsible(),
+                        Section::make('Upload Image Texture Model 1')
+                            ->schema([
+                                FileUpload::make('add1_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add1')
                                     ->multiple()
                                     ->preserveFilenames()
                             ])->collapsible(),
-                        Section::make('Upload Image Texture Kaki Model')
+                        Section::make('Upload Image Texture Model 2')
                             ->schema([
-                                FileUpload::make('kaki_texture_filepath')
-                                    ->directory('form-attachment/x3d/meja/kaki')
+                                FileUpload::make('add2_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add2')
                                     ->multiple()
                                     ->preserveFilenames()
                             ])->collapsible(),
-                        Section::make('Upload Image Texture Rak Model')
+                        Section::make('Upload Image Texture Model 3')
                             ->schema([
-                                FileUpload::make('rak_texture_filepath')
-                                    ->directory('form-attachment/x3d/meja/rak')
+                                FileUpload::make('add3_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add3')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                            ])->collapsible(),
+                        Section::make('Upload Image Texture Model 4')
+                            ->schema([
+                                FileUpload::make('add4_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/add4')
                                     ->multiple()
                                     ->preserveFilenames()
                             ])->collapsible(),
@@ -151,9 +164,9 @@ class X3dTableResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListX3dTables::route('/'),
-            'create' => Pages\CreateX3dTable::route('/create'),
-            'edit' => Pages\EditX3dTable::route('/{record}/edit'),
+            'index' => Pages\ListX3dCabinets::route('/'),
+            'create' => Pages\CreateX3dCabinet::route('/create'),
+            'edit' => Pages\EditX3dCabinet::route('/{record}/edit'),
         ];
     }
 }
