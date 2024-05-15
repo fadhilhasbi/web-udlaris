@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class X3dTable extends Model
+class X3dRak extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,14 @@ class X3dTable extends Model
 
     # Multiple Upload
     protected $casts = [
-        'papan_filepath' => 'array',
-        'kaki_filepath' => 'array',
         'rak_filepath' => 'array',
-        'papan_originalname' => 'array',
-        'kaki_originalname' => 'array',
+        'laci_filepath' => 'array',
+        'add1_filepath' => 'array',
         'rak_originalname' => 'array',
-        'papan_texture_filepath' => 'array',
-        'kaki_texture_filepath' => 'array',
+        'laci_originalname' => 'array',
+        'add1_originalname' => 'array',
         'rak_texture_filepath' => 'array',
+        'laci_texture_filepath' => 'array',
+        'add1_texture_filepath' => 'array',
     ];
 }

@@ -11,20 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('x3d_tables', function (Blueprint $table) {
+        Schema::create('x3d_chairs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('thumbnail')->nullable();
             $table->longText('papan_filepath')->nullable();
             $table->longText('kaki_filepath')->nullable();
-            $table->longText('rak_filepath')->nullable();
+            $table->longText('senderan_filepath')->nullable();
+            $table->longText('add1_filepath')->nullable();
             $table->longText('papan_originalname')->nullable();
             $table->longText('kaki_originalname')->nullable();
-            $table->longText('rak_originalname')->nullable();
+            $table->longText('senderan_originalname')->nullable();
+            $table->longText('add1_originalname')->nullable();
             $table->longText('papan_texture_filepath')->nullable();
             $table->longText('kaki_texture_filepath')->nullable();
-            $table->longText('rak_texture_filepath')->nullable();
+            $table->longText('senderan_texture_filepath')->nullable();
+            $table->longText('add1_texture_filepath')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
@@ -35,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('x3d_tables');
+        Schema::dropIfExists('x3d_chairs');
     }
 };
