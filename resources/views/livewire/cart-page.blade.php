@@ -51,7 +51,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="py-4 text-4xl font-semibold text-center text-slate-500">
-                                        Kosong?! Seperti bansos? <br> Yuk diisi agar membantu UMKM secara nyata</td>
+                                        Keranjang masih kosong, <br> Silahkan pilih produk dahulu</td>
                                 </tr>
                             @endforelse
 
