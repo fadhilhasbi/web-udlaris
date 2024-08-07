@@ -37,9 +37,6 @@ Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
-Route::get('/checkout', CheckoutPage::class);
-Route::get('/success', [SuccessPage::class, 'success'])->name('success');
-Route::get('/cancel', [CancelPage::class, 'cancel'])->name('cancel');
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
@@ -59,4 +56,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/checkout', CheckoutPage::class);
+    Route::get('/success', [SuccessPage::class, 'success'])->name('success');
+    Route::get('/cancel', [CancelPage::class, 'cancel'])->name('cancel');
 });

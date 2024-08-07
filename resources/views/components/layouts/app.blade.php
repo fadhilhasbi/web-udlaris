@@ -14,9 +14,9 @@
         @livewireStyles
         <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link>
     </head>
-    <body x-cloak x-data="{darkMode: $persist(false)}" :class="{'dark': darkMode === true }" class="antialiased">
+    <body x-cloak x-data="{darkMode: $persist(false)}" :class="{'dark': darkMode === true }" class="antialiased min-h-screen flex flex-col">
         @livewire('partials.navbar')
-        <main>
+        <main class="flex flex-grow flex-col">
             {{ $slot }}
         </main>
         @livewire('partials.footer')
