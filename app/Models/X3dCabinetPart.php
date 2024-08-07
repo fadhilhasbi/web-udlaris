@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class X3dCabinet extends Model
+class X3dCabinetPart extends Model
 {
-
     use HasFactory;
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function parts()
+    public function cabinet()
     {
-        return $this->hasMany(X3dCabinetPart::class);
+        return $this->belongsTo(X3dCabinet::class);
     }
 }

@@ -2,25 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\X3dCabinetResource\Pages;
-use App\Filament\Resources\X3dCabinetResource\RelationManagers;
-use App\Models\X3dCabinet;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Tables;
 use Filament\Forms\Set;
+use Filament\Forms\Form;
+use App\Models\X3dCabinet;
+use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
-use Filament\Tables;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\X3dCabinetResource\Pages;
+use App\Filament\Resources\X3dCabinetResource\RelationManagers;
 
 class X3dCabinetResource extends Resource
 {
@@ -68,64 +71,41 @@ class X3dCabinetResource extends Resource
                     ->schema([
                         Section::make('Status')
                             ->schema([
-                                Toggle::make('is_active'),
+                                Toggle::make('is_active')
+                                ->default(true),
                             ]),
-                        Section::make('Upload 3D Model 1 ')
+                    ]),
+
+                Card::make()
+                    ->schema([
+                        Section::make('Parts')
                             ->schema([
-                                FileUpload::make('add1_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add1')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add1_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Model 2')
-                            ->schema([
-                                FileUpload::make('add2_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add2')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add2_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Model 3')
-                            ->schema([
-                                FileUpload::make('add3_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add3')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add3_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Model 4')
-                            ->schema([
-                                FileUpload::make('add4_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add4')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add4_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Model 1')
-                            ->schema([
-                                FileUpload::make('add1_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add1')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Model 2')
-                            ->schema([
-                                FileUpload::make('add2_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add2')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Model 3')
-                            ->schema([
-                                FileUpload::make('add3_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add3')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Model 4')
-                            ->schema([
-                                FileUpload::make('add4_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add4')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
+                                Repeater::make('parts')
+                                    ->label('Upload Model')
+                                    ->grid(3)
+                                    // ->columns(2)
+                                    ->relationship()
+                                    ->minItems(1)
+                                    ->schema([
+                                        FileUpload::make('file_path')
+                                            ->directory('form-attachment/x3d/cabinet/')
+                                            ->storeFileNamesIn('original_name'),
+                                        FileUpload::make('texture_file_path')
+                                            ->directory('form-attachment/x3d/cabinet/')
+                                            ->preserveFilenames(),
+                                        Select::make('part_type')
+                                            ->options([
+                                                'add1' => 'Part 1',
+                                                'add2' => 'Part 2',
+                                                'add3' => 'Part 3',
+                                                'add4' => 'Part 4',
+                                            ])
+                                            ->required(),
+                                        TextInput::make('price')
+                                            ->numeric()
+                                            ->required(),
+                                    ])
+                            ])
                     ])
             ]);
     }
