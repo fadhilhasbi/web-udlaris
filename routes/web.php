@@ -14,9 +14,13 @@ use App\Livewire\CustomChairPage;
 use App\Livewire\CustomCabinetPage;
 use App\Livewire\CustomCreateChairPage;
 use App\Livewire\CustomCreateCabinetPage;
-
-
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
+use App\Helpers\CartHelper;
+use Illuminate\Http\Request;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +53,15 @@ Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/products/{product}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
+
+
+Route::post('/add-custom-3d-to-cart', function (Request $request) {
+    $customProduct = $request->all();
+    $result = CartHelper::addToCart($customProduct);
+
+    return response()->json(['success' => $result]);
+})->name('add.custom.3d.to.cart');
+
 
 Route::middleware([
     'auth:sanctum',

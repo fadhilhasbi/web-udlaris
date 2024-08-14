@@ -13,17 +13,17 @@ class X3dChair extends Model
 
     # Multiple Upload
     protected $casts = [
-        'papan_filepath' => 'array',
-        'kaki_filepath' => 'array',
-        'senderan_filepath' => 'array',
-        'add1_filepath' => 'array',
-        'papan_originalname' => 'array',
-        'kaki_originalname' => 'array',
-        'senderan_originalname' => 'array',
-        'add1_originalname' => 'array',
-        'papan_texture_filepath' => 'array',
-        'kaki_texture_filepath' => 'array',
-        'senderan_texture_filepath' => 'array',
-        'add1_texture_filepath' => 'array',
+        'model1_filepath' => 'array',
+        'model2_filepath' => 'array',
+        'model3_filepath' => 'array',
+        'model1_originalname' => 'array',
+        'model2_originalname' => 'array',
+        'model3_originalname' => 'array',
+        'model1_texture_filepath' => 'array',
+        'model2_texture_filepath' => 'array',
+        'model3_texture_filepath' => 'array',
+        'price1' => 'array',
+        'price2' => 'array',
+        'price3' => 'array',
     ];
 }

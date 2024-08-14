@@ -3,13 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\X3dCabinetResource\Pages;
-use App\Filament\Resources\X3dCabinetResource\RelationManagers;
 use App\Models\X3dCabinet;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -17,10 +17,14 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Wizard;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+
 
 class X3dCabinetResource extends Resource
 {
@@ -35,8 +39,12 @@ class X3dCabinetResource extends Resource
         return $form
             ->schema([
                 //
-                Group::make()
+                Card::make()
                     ->schema([
+                        Section::make('Status')
+                            ->schema([
+                                Toggle::make('is_active'),
+                            ]),
                         Section::make()
                             ->schema([
                                 TextInput::make('name')
@@ -64,68 +72,86 @@ class X3dCabinetResource extends Resource
                         ])
                     ]),
 
-                Group::make()
+                Card::make()
                     ->schema([
-                        Section::make('Status')
+                        Section::make('Upload 3D Model Part 1')
                             ->schema([
-                                Toggle::make('is_active'),
-                            ]),
-                        Section::make('Upload 3D Model 1 ')
-                            ->schema([
-                                FileUpload::make('add1_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add1')
+                                FileUpload::make('model1_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model1')
                                     ->multiple()
-                                    ->storeFileNamesIn('add1_originalname')
+                                    ->storeFileNamesIn('model1_originalname')
                             ])->collapsible(),
-                        Section::make('Upload 3D Model 2')
+                        Section::make('Harga Model Part 1')
                             ->schema([
-                                FileUpload::make('add2_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add2')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add2_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Model 3')
+                                Repeater::make('price1')
+                                    ->schema([
+                                        TextInput::make('price1')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                                ]),
+                        Section::make('Upload Image Texture Model Part  1')
                             ->schema([
-                                FileUpload::make('add3_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add3')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add3_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Model 4')
-                            ->schema([
-                                FileUpload::make('add4_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add4')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add4_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Model 1')
-                            ->schema([
-                                FileUpload::make('add1_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add1')
+                                FileUpload::make('model1_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model1')
                                     ->multiple()
                                     ->preserveFilenames()
                             ])->collapsible(),
-                        Section::make('Upload Image Texture Model 2')
+                        ]),
+                Card::make()
+                    ->schema([
+                        Section::make('Upload 3D Model Part 2')
                             ->schema([
-                                FileUpload::make('add2_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add2')
+                                    FileUpload::make('model2_filepath')
+                                        ->directory('form-attachment/x3d/cabinet/model2')
+                                        ->multiple()
+                                        ->storeFileNamesIn('model2_originalname')
+                                ])->collapsible(),
+                        Section::make('Harga Model Part 2')
+                            ->schema([
+                                    Repeater::make('price2')
+                                        ->schema([
+                                            TextInput::make('price2')
+                                                ->label('Harga')
+                                                ->numeric()
+                                                ->required(),
+                                        ]),
+                                    ]),
+                        Section::make('Upload Image Texture Model Part 2')
+                            ->schema([
+                                FileUpload::make('model2_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model2')
                                     ->multiple()
                                     ->preserveFilenames()
                             ])->collapsible(),
-                        Section::make('Upload Image Texture Model 3')
+                    ]),
+                Card::make()
+                    ->schema([
+                        Section::make('Upload 3D Model Part 3')
                             ->schema([
-                                FileUpload::make('add3_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add3')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Model 4')
+                                    FileUpload::make('model3_filepath')
+                                        ->directory('form-attachment/x3d/cabinet/model3')
+                                        ->multiple()
+                                        ->storeFileNamesIn('model3_originalname')
+                                ])->collapsible(),
+                        Section::make('Harga Model Part 3')
                             ->schema([
-                                FileUpload::make('add4_texture_filepath')
-                                    ->directory('form-attachment/x3d/cabinet/add4')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
+                                    Repeater::make('price3')
+                                        ->schema([
+                                            TextInput::make('price3')
+                                                ->label('Harga')
+                                                ->numeric()
+                                                ->required(),
+                                        ]),
+                                    ]),
+                        Section::make('Upload Image Texture Model Part 3')
+                            ->schema([
+                                        FileUpload::make('model3_texture_filepath')
+                                            ->directory('form-attachment/x3d/cabinet/model3')
+                                            ->multiple()
+                                            ->preserveFilenames()
+                                    ])->collapsible(),
                     ])
             ]);
     }
@@ -134,7 +160,6 @@ class X3dCabinetResource extends Resource
     {
         return $table
             ->columns([
-                //
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -148,9 +173,7 @@ class X3dCabinetResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
