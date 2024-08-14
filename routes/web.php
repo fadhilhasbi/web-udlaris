@@ -57,6 +57,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/checkout', CheckoutPage::class);
-    Route::get('/success', [SuccessPage::class, 'success'])->name('success');
-    Route::get('/cancel', [CancelPage::class, 'cancel'])->name('cancel');
+    Route::get('/checkout/success/{order_id}', SuccessPage::class)->name('success');
+    Route::get('/checkout/cancel{order_id}', CancelPage::class)->name('cancel');
 });
