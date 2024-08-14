@@ -238,7 +238,7 @@
                 });
 
                 // Menyoroti card yang dipilih
-                var selectedCard = document.querySelector(`.card[onclick="selectPart('${value}', '${type}')"]`);
+                var selectedCard = document.querySelector(`.card[onclick="selectPart('${value}', '${type}', ${price})"]`);
                 if (selectedCard) {
                     selectedCard.classList.add('bg-blue-50', 'border-blue-600', 'dark:bg-blue-800', 'dark:border-blue-400');
                 }
