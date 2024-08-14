@@ -54,15 +54,6 @@ Route::get('/products', ProductsPage::class);
 Route::get('/products/{product}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
 
-
-Route::post('/add-custom-3d-to-cart', function (Request $request) {
-    $customProduct = $request->all();
-    $result = CartHelper::addToCart($customProduct);
-
-    return response()->json(['success' => $result]);
-})->name('add.custom.3d.to.cart');
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

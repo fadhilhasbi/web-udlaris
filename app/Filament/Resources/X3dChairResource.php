@@ -21,6 +21,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Tabs;
 
 class X3dChairResource extends Resource
 {
@@ -35,7 +36,7 @@ class X3dChairResource extends Resource
         return $form
             ->schema([
                 //
-                Card::make()
+                Group::make()
                     ->schema([
                         Section::make('Status')
                             ->schema([
@@ -68,16 +69,26 @@ class X3dChairResource extends Resource
                         ])
                     ]),
 
-                Card::make()
-                    ->schema([
-                        Section::make('Upload 3D Model Part 1')
+                    Tabs::make('Part 1')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 1')
+                            ->icon('heroicon-s-folder-arrow-down')
                             ->schema([
                                 FileUpload::make('model1_filepath')
                                     ->directory('form-attachment/x3d/chair/model1')
                                     ->multiple()
                                     ->storeFileNamesIn('model1_originalname')
-                            ])->collapsible(),
-                        Section::make('Harga Model Part 1')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model1_texture_filepath')
+                                ->directory('form-attachment/x3d/chair/model1')
+                                ->multiple()
+                                ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
                             ->schema([
                                 Repeater::make('price1')
                                     ->schema([
@@ -86,69 +97,73 @@ class X3dChairResource extends Resource
                                             ->numeric()
                                             ->required(),
                                     ]),
-                                ]),
-                        Section::make('Upload Image Texture Model Part 1')
+                        ])
+                    ])
+                    ->activeTab(1),
+
+                Tabs::make('Part 2')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 2')
+                            ->icon('heroicon-s-folder-arrow-down')
                             ->schema([
-                                FileUpload::make('model1_texture_filepath')
-                                    ->directory('form-attachment/x3d/chair/model1')
+                                FileUpload::make('model2_filepath')
+                                    ->directory('form-attachment/x3d/chair/model2')
                                     ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        ]),
-                Card::make()
-                    ->schema([
-                        Section::make('Upload 3D Model Part 2')
-                            ->schema([
-                                    FileUpload::make('model2_filepath')
-                                        ->directory('form-attachment/x3d/chair/model2')
-                                        ->multiple()
-                                        ->storeFileNamesIn('model2_originalname')
-                                ])->collapsible(),
-                        Section::make('Harga Model Part 2')
-                            ->schema([
-                                    Repeater::make('price2')
-                                        ->schema([
-                                            TextInput::make('price2')
-                                                ->label('Harga')
-                                                ->numeric()
-                                                ->required(),
-                                        ]),
-                                    ]),
-                        Section::make('Upload Image Texture Model Part 2')
+                                    ->storeFileNamesIn('model2_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
                             ->schema([
                                 FileUpload::make('model2_texture_filepath')
                                     ->directory('form-attachment/x3d/chair/model2')
                                     ->multiple()
                                     ->preserveFilenames()
-                            ])->collapsible(),
-                    ]),
-                Card::make()
-                    ->schema([
-                        Section::make('Upload 3D Model Part 3')
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
                             ->schema([
-                                    FileUpload::make('model3_filepath')
-                                        ->directory('form-attachment/x3d/chair/model3')
-                                        ->multiple()
-                                        ->storeFileNamesIn('model3_originalname')
-                                ])->collapsible(),
-                        Section::make('Harga Model Part 3')
-                            ->schema([
-                                    Repeater::make('price3')
-                                        ->schema([
-                                            TextInput::make('price3')
-                                                ->label('Harga')
-                                                ->numeric()
-                                                ->required(),
-                                        ]),
+                                Repeater::make('price2')
+                                    ->schema([
+                                        TextInput::make('price2')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
                                     ]),
-                        Section::make('Upload Image Texture Model Part 3')
-                            ->schema([
-                                        FileUpload::make('model3_texture_filepath')
-                                            ->directory('form-attachment/x3d/chair/model3')
-                                            ->multiple()
-                                            ->preserveFilenames()
-                                    ])->collapsible(),
+                        ])
                     ])
+                    ->activeTab(1),
+
+                Tabs::make('Part 3')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 3')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model3_filepath')
+                                    ->directory('form-attachment/x3d/chair/model3')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model3_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model3_texture_filepath')
+                                    ->directory('form-attachment/x3d/chair/model3')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
+                            ->schema([
+                                Repeater::make('price3')
+                                    ->schema([
+                                        TextInput::make('price3')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                        ])
+                    ])
+                    ->activeTab(1),
             ]);
     }
 

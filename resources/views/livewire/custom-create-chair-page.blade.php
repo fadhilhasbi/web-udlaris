@@ -254,31 +254,6 @@
                     document.getElementById('warningModal').style.display = 'flex';
                     return;
                 }
-
-                let customProduct = {
-                    model1: selectedModel1,
-                    model2: selectedModel2,
-                    model3: selectedModel3,
-                    total_price: selectedModel1Price + selectedModel2Price + selectedModel3Price
-                };
-
-                fetch("{{ route('add.custom.3d.to.cart') }}", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    body: JSON.stringify(customProduct)
-                }).then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Item added to cart successfully!');
-                    } else {
-                        alert('Failed to add item to cart.');
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
-                });
             }
 
             function applyChanges() {
