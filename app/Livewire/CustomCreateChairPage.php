@@ -11,6 +11,10 @@ class CustomCreateChairPage extends Component
 {
     public $slug;
 
+    public function mount($slug)
+    {
+        $this->slug = $slug;
+    }
 
     #[Title('Kustomisasi Tipe Kursi - UD Laris')]
     public function render()

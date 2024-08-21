@@ -85,6 +85,7 @@ class ProductResource extends Resource
                                 TextInput::make('price')
                                     ->label('Harga Barang')
                                     ->numeric()
+                                    ->prefix('IDR')
                                     ->required(),
                                 TextInput::make('sku')
                                     ->label('Kode Barang (SKU)')
@@ -102,10 +103,10 @@ class ProductResource extends Resource
                         Section::make('Status')
                             ->schema([
                                 Toggle::make('is_active')
-                                ->default(true),
+                                    ->default(true),
                                 Toggle::make('is_featured'),
                                 Toggle::make('in_stock')
-                                ->default(true),
+                                    ->default(true),
                                 Toggle::make('on_sale'),
                                 DatePicker::make('published_at')
                                     ->columnSpan('full')
@@ -115,11 +116,11 @@ class ProductResource extends Resource
                         Section::make('Type')
                             ->schema([
                                 Select::make('categories')
-                                ->helperText('Sesuaikan produk dengan kategori')
-                                ->multiple()
-                                ->preload()
-                                ->relationship('categories', 'name')
-                                ->required()
+                                    ->helperText('Sesuaikan produk dengan kategori')
+                                    ->multiple()
+                                    ->preload()
+                                    ->relationship('categories', 'name')
+                                    ->required()
                             ]),
                         Section::make('Gambar Produk')
                             ->schema([
@@ -143,6 +144,7 @@ class ProductResource extends Resource
                 TextColumn::make('sku')
                     ->searchable(),
                 TextColumn::make('price')
+                    ->money('IDR')
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('is_active')

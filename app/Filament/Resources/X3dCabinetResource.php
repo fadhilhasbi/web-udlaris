@@ -27,8 +27,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 
-
-
 class X3dCabinetResource extends Resource
 {
     protected static ?string $model = X3dCabinet::class;
@@ -74,7 +72,6 @@ class X3dCabinetResource extends Resource
                                 ->directory('form-attachment/image/custom-cabinet-thumbnail')
                         ])
                     ]),
-
 
                 Tabs::make('Part 1')
                     ->tabs([
