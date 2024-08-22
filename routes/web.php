@@ -16,8 +16,6 @@ use App\Livewire\ProductDetailPage;
 use App\Livewire\CustomCreateRakPage;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CustomCreateChairPage;
-
-
 use App\Livewire\CustomCreateTablePage;
 use App\Livewire\CustomCreateCabinetPage;
 use App\Http\Controllers\MidtransController;
@@ -48,6 +46,12 @@ Route::get('/product-custom/meja/{slug}', CustomCreateTablePage::class);
 Route::get('/product-custom/rak/{slug}', CustomCreateRakPage::class);
 Route::get('/product-custom/kursi/{slug}', CustomCreateChairPage::class);
 Route::get('/product-custom/lemari/{slug}', CustomCreateCabinetPage::class);
+
+
+Route::get('/categories', CategoriesPage::class);
+Route::get('/products', ProductsPage::class);
+Route::get('/products/{product}', ProductDetailPage::class);
+Route::get('/cart', CartPage::class);
 
 Route::middleware([
     'auth:sanctum',
