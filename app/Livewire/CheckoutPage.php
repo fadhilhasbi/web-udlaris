@@ -9,6 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Redirect;
 
 #[Title('Checkout Keranjang - UD Laris')]
 class CheckoutPage extends Component
@@ -92,7 +93,7 @@ class CheckoutPage extends Component
             Config::$is3ds = true;
 
             $transaction_details = [
-                'order_id' => rand(), // This should ideally be something unique
+                'order_id' => 'MID' . $order->id . uniqid(), // This should ideally be something unique
                 'gross_amount' => $order->grand_total, // no decimal allowed for credit card
             ];
 
@@ -118,8 +119,15 @@ class CheckoutPage extends Component
                 'customer_details' => $customer_details,
                 'callbacks' => [
                     'finish' => $success_url, // Redirect to success page after payment
+                    'expire' => $cancel_url
                 ],
+                'expiry' => [
+                    'duration' => 20,
+                    'unit' => 'seconds'
+                ]
             ];
+
+            Config::$overrideNotifUrl = route('midtrans.notification');
 
             $snapToken = Snap::getSnapToken($params);
             $redirect_url = Snap::getSnapUrl($params); // Correct method to generate the redirect URL

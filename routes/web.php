@@ -1,25 +1,26 @@
 <?php
 
-use App\Livewire\CancelPage;
-use App\Livewire\CheckoutPage;
-use App\Livewire\CustomCreateTablePage;
-use App\Livewire\CustomTablePage;
-use App\Livewire\HomePage;
-use App\Livewire\ProductCustomPage;
 use App\Livewire\CartPage;
-use App\Livewire\CategoriesPage;
-use App\Livewire\ProductDetailPage;
-use App\Livewire\ProductsPage;
-use App\Livewire\CustomCreateRakPage;
-use App\Livewire\CustomRakPage;
-use App\Livewire\CustomChairPage;
-use App\Livewire\CustomCabinetPage;
-use App\Livewire\CustomCreateChairPage;
-use App\Livewire\CustomCreateCabinetPage;
-
-
+use App\Livewire\HomePage;
+use App\Livewire\CancelPage;
 use App\Livewire\SuccessPage;
+use App\Livewire\CheckoutPage;
+use App\Livewire\ProductsPage;
+use App\Livewire\CustomRakPage;
+use App\Livewire\CategoriesPage;
+use App\Livewire\CustomChairPage;
+use App\Livewire\CustomTablePage;
+use App\Livewire\CustomCabinetPage;
+use App\Livewire\ProductCustomPage;
+use App\Livewire\ProductDetailPage;
+use App\Livewire\CustomCreateRakPage;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\CustomCreateChairPage;
+
+
+use App\Livewire\CustomCreateTablePage;
+use App\Livewire\CustomCreateCabinetPage;
+use App\Http\Controllers\MidtransController;
 
 /*
 |-------------------------------------------------------->>>>>>> develop------------------
@@ -58,5 +59,6 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/checkout', CheckoutPage::class);
     Route::get('/checkout/success/{order_id}', SuccessPage::class)->name('success');
-    Route::get('/checkout/cancel{order_id}', CancelPage::class)->name('cancel');
+    Route::get('/checkout/cancel/{order_id}', CancelPage::class)->name('cancel');
+    Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 });
