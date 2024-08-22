@@ -1,9 +1,5 @@
 <?php
 
-use App\Livewire\CustomCreateTablePage;
-use App\Livewire\CustomTablePage;
-use App\Livewire\HomePage;
-use App\Livewire\ProductCustomPage;
 use App\Livewire\CartPage;
 use App\Livewire\HomePage;
 use App\Livewire\CancelPage;
@@ -17,20 +13,12 @@ use App\Livewire\CustomTablePage;
 use App\Livewire\CustomCabinetPage;
 use App\Livewire\ProductCustomPage;
 use App\Livewire\ProductDetailPage;
-use App\Livewire\ProductsPage;
 use App\Livewire\CustomCreateRakPage;
-use App\Livewire\CustomRakPage;
-use App\Livewire\CustomChairPage;
-use App\Livewire\CustomCabinetPage;
-use App\Livewire\CustomCreateChairPage;
-use App\Livewire\CustomCreateCabinetPage;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-use App\Helpers\CartHelper;
-use Illuminate\Http\Request;
-
-
-
+use App\Livewire\CustomCreateChairPage;
+use App\Livewire\CustomCreateTablePage;
+use App\Livewire\CustomCreateCabinetPage;
+use App\Http\Controllers\MidtransController;
 
 /*
 |-------------------------------------------------------->>>>>>> develop------------------
@@ -73,4 +61,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/checkout', CheckoutPage::class);
+    Route::get('/checkout/success/{order_id}', SuccessPage::class)->name('success');
+    Route::get('/checkout/cancel/{order_id}', CancelPage::class)->name('cancel');
+    Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 });
