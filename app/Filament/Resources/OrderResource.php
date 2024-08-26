@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\OrderResource\RelationManagers\AddressRelationManager;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Order;
@@ -32,6 +31,7 @@ use Filament\Forms\Components\ToggleButtons;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\RelationManagers\AddressRelationManager;
 
 class OrderResource extends Resource
 {
