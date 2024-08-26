@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\CartPage;
+use App\Livewire\FaqPage;
 use App\Livewire\HomePage;
 use App\Livewire\CancelPage;
 use App\Livewire\SuccessPage;
@@ -36,6 +37,7 @@ Route::get('/categories', CategoriesPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
+Route::get('/faq', FaqPage::class);
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
@@ -46,12 +48,6 @@ Route::get('/product-custom/meja/{slug}', CustomCreateTablePage::class);
 Route::get('/product-custom/rak/{slug}', CustomCreateRakPage::class);
 Route::get('/product-custom/kursi/{slug}', CustomCreateChairPage::class);
 Route::get('/product-custom/lemari/{slug}', CustomCreateCabinetPage::class);
-
-
-Route::get('/categories', CategoriesPage::class);
-Route::get('/products', ProductsPage::class);
-Route::get('/products/{product}', ProductDetailPage::class);
-Route::get('/cart', CartPage::class);
 
 Route::middleware([
     'auth:sanctum',
