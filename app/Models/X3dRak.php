@@ -14,14 +14,17 @@ class X3dRak extends Model
 
     # Multiple Upload
     protected $casts = [
-        'rak_filepath' => 'array',
-        'laci_filepath' => 'array',
-        'add1_filepath' => 'array',
-        'rak_originalname' => 'array',
-        'laci_originalname' => 'array',
-        'add1_originalname' => 'array',
-        'rak_texture_filepath' => 'array',
-        'laci_texture_filepath' => 'array',
-        'add1_texture_filepath' => 'array',
+        'model1_filepath' => 'array',
+        'model2_filepath' => 'array',
+        'model3_filepath' => 'array',
+        'model1_originalname' => 'array',
+        'model2_originalname' => 'array',
+        'model3_originalname' => 'array',
+        'model1_texture_filepath' => 'array',
+        'model2_texture_filepath' => 'array',
+        'model3_texture_filepath' => 'array',
+        'price1' => 'array',
+        'price2' => 'array',
+        'price3' => 'array',
     ];
 }

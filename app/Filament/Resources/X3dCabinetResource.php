@@ -2,28 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
-use Filament\Forms\Form;
+use App\Filament\Resources\X3dCabinetResource\Pages;
 use App\Models\X3dCabinet;
-use Filament\Tables\Table;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Tabs;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Forms\Components\Split;
+use Filament\Forms\Components\Wizard;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\X3dCabinetResource\Pages;
-use App\Filament\Resources\X3dCabinetResource\RelationManagers;
+
+
+
 
 class X3dCabinetResource extends Resource
 {
@@ -40,6 +44,10 @@ class X3dCabinetResource extends Resource
                 //
                 Group::make()
                     ->schema([
+                        Section::make('Status')
+                            ->schema([
+                                Toggle::make('is_active'),
+                            ]),
                         Section::make()
                             ->schema([
                                 TextInput::make('name')
@@ -67,46 +75,102 @@ class X3dCabinetResource extends Resource
                         ])
                     ]),
 
-                Group::make()
-                    ->schema([
-                        Section::make('Status')
-                            ->schema([
-                                Toggle::make('is_active')
-                                ->default(true),
-                            ]),
-                    ]),
 
-                Card::make()
-                    ->schema([
-                        Section::make('Parts')
+                Tabs::make('Part 1')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 1')
+                            ->icon('heroicon-s-folder-arrow-down')
                             ->schema([
-                                Repeater::make('parts')
-                                    ->label('Upload Model')
-                                    ->grid(3)
-                                    // ->columns(2)
-                                    ->relationship()
-                                    ->minItems(1)
+                                FileUpload::make('model1_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model1')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model1_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model1_texture_filepath')
+                                ->directory('form-attachment/x3d/cabinet/model1')
+                                ->multiple()
+                                ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
+                            ->schema([
+                                Repeater::make('price1')
                                     ->schema([
-                                        FileUpload::make('file_path')
-                                            ->directory('form-attachment/x3d/cabinet/')
-                                            ->storeFileNamesIn('original_name'),
-                                        FileUpload::make('texture_file_path')
-                                            ->directory('form-attachment/x3d/cabinet/')
-                                            ->preserveFilenames(),
-                                        Select::make('part_type')
-                                            ->options([
-                                                'add1' => 'Part 1',
-                                                'add2' => 'Part 2',
-                                                'add3' => 'Part 3',
-                                                'add4' => 'Part 4',
-                                            ])
-                                            ->required(),
-                                        TextInput::make('price')
+                                        TextInput::make('price1')
+                                            ->label('Harga')
                                             ->numeric()
                                             ->required(),
-                                    ])
-                            ])
+                                    ]),
+                        ])
                     ])
+                    ->activeTab(1),
+
+                Tabs::make('Part 2')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 2')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model2_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model2')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model2_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model2_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model2')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
+                            ->schema([
+                                Repeater::make('price2')
+                                    ->schema([
+                                        TextInput::make('price2')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                        ])
+                    ])
+                    ->activeTab(1),
+
+                Tabs::make('Part 3')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 3')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model3_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model3')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model3_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model3_texture_filepath')
+                                    ->directory('form-attachment/x3d/cabinet/model3')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
+                            ->schema([
+                                Repeater::make('price3')
+                                    ->schema([
+                                        TextInput::make('price3')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                        ])
+                    ])
+                    ->activeTab(1),
             ]);
     }
 
@@ -114,7 +178,6 @@ class X3dCabinetResource extends Resource
     {
         return $table
             ->columns([
-                //
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -128,9 +191,7 @@ class X3dCabinetResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

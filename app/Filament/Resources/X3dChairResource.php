@@ -3,13 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\X3dChairResource\Pages;
-use App\Filament\Resources\X3dChairResource\RelationManagers;
 use App\Models\X3dChair;
-use Filament\Forms\Set;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -17,10 +18,10 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Tabs;
 
 class X3dChairResource extends Resource
 {
@@ -37,6 +38,10 @@ class X3dChairResource extends Resource
                 //
                 Group::make()
                     ->schema([
+                        Section::make('Status')
+                            ->schema([
+                                Toggle::make('is_active'),
+                            ]),
                         Section::make()
                             ->schema([
                                 TextInput::make('name')
@@ -64,69 +69,101 @@ class X3dChairResource extends Resource
                         ])
                     ]),
 
-                Group::make()
-                    ->schema([
-                        Section::make('Status')
+                    Tabs::make('Part 1')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 1')
+                            ->icon('heroicon-s-folder-arrow-down')
                             ->schema([
-                                Toggle::make('is_active'),
+                                FileUpload::make('model1_filepath')
+                                    ->directory('form-attachment/x3d/chair/model1')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model1_originalname')
                             ]),
-                        Section::make('Upload 3D Papan Model')
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
                             ->schema([
-                                FileUpload::make('papan_filepath')
-                                    ->directory('form-attachment/x3d/chair/papan')
-                                    ->multiple()
-                                    ->storeFileNamesIn('papan_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Kaki Model')
+                                FileUpload::make('model1_texture_filepath')
+                                ->directory('form-attachment/x3d/chair/model1')
+                                ->multiple()
+                                ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
                             ->schema([
-                                FileUpload::make('kaki_filepath')
-                                    ->directory('form-attachment/x3d/chair/kaki')
-                                    ->multiple()
-                                    ->storeFileNamesIn('kaki_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Senderan Model')
-                            ->schema([
-                                FileUpload::make('senderan_filepath')
-                                    ->directory('form-attachment/x3d/chair/senderan')
-                                    ->multiple()
-                                    ->storeFileNamesIn('senderan_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload 3D Add 1 Model')
-                            ->schema([
-                                FileUpload::make('add1_filepath')
-                                    ->directory('form-attachment/x3d/chair/add1')
-                                    ->multiple()
-                                    ->storeFileNamesIn('add1_originalname')
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Papan Model')
-                            ->schema([
-                                FileUpload::make('papan_texture_filepath')
-                                    ->directory('form-attachment/x3d/chair/papan')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Kaki Model')
-                            ->schema([
-                                FileUpload::make('kaki_texture_filepath')
-                                    ->directory('form-attachment/x3d/chair/kaki')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Senderan Model')
-                            ->schema([
-                                FileUpload::make('senderan_texture_filepath')
-                                    ->directory('form-attachment/x3d/chair/senderan')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
-                        Section::make('Upload Image Texture Add 1 Model')
-                            ->schema([
-                                FileUpload::make('add1_texture_filepath')
-                                    ->directory('form-attachment/x3d/chair/add1')
-                                    ->multiple()
-                                    ->preserveFilenames()
-                            ])->collapsible(),
+                                Repeater::make('price1')
+                                    ->schema([
+                                        TextInput::make('price1')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                        ])
                     ])
+                    ->activeTab(1),
+
+                Tabs::make('Part 2')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 2')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model2_filepath')
+                                    ->directory('form-attachment/x3d/chair/model2')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model2_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model2_texture_filepath')
+                                    ->directory('form-attachment/x3d/chair/model2')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
+                            ->schema([
+                                Repeater::make('price2')
+                                    ->schema([
+                                        TextInput::make('price2')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                        ])
+                    ])
+                    ->activeTab(1),
+
+                Tabs::make('Part 3')
+                    ->tabs([
+                        Tabs\Tab::make('Upload Model Part 3')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model3_filepath')
+                                    ->directory('form-attachment/x3d/chair/model3')
+                                    ->multiple()
+                                    ->storeFileNamesIn('model3_originalname')
+                            ]),
+                        Tabs\Tab::make('Upload Texture')
+                            ->icon('heroicon-s-folder-arrow-down')
+                            ->schema([
+                                FileUpload::make('model3_texture_filepath')
+                                    ->directory('form-attachment/x3d/chair/model3')
+                                    ->multiple()
+                                    ->preserveFilenames()
+                                ]),
+                        Tabs\Tab::make('Harga')
+                            ->icon('heroicon-s-currency-dollar')
+                            ->schema([
+                                Repeater::make('price3')
+                                    ->schema([
+                                        TextInput::make('price3')
+                                            ->label('Harga')
+                                            ->numeric()
+                                            ->required(),
+                                    ]),
+                        ])
+                    ])
+                    ->activeTab(1),
             ]);
     }
 
@@ -134,7 +171,6 @@ class X3dChairResource extends Resource
     {
         return $table
             ->columns([
-                //
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -148,9 +184,7 @@ class X3dChairResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
