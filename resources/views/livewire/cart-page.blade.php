@@ -170,6 +170,7 @@
                                 </td>
                                 <td>
                                     <!-- Quantity -->
+
                                 </td>
                                 <td>
                                     <div class="flex justify-center">
