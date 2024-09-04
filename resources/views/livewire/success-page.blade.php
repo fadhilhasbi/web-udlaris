@@ -112,7 +112,7 @@
                     class="w-full rounded-md border border-blue-500 px-4 py-2 text-center text-blue-500 hover:bg-blue-600 hover:text-white dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 md:w-auto">
                     Go back shopping
                 </a>
-                <a href="/orders"
+                <a href="/my-order"
                     class="w-full rounded-md bg-blue-500 px-4 py-2 text-center text-gray-50 hover:bg-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:w-auto">
                     View My Orders
                 </a>

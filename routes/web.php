@@ -4,6 +4,8 @@ use App\Livewire\CartPage;
 use App\Livewire\FaqPage;
 use App\Livewire\HomePage;
 use App\Livewire\CancelPage;
+use App\Livewire\MyOrderDetail;
+use App\Livewire\MyOrderPage;
 use App\Livewire\SuccessPage;
 use App\Livewire\CheckoutPage;
 use App\Livewire\ProductsPage;
@@ -38,6 +40,8 @@ Route::get('/products', ProductsPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
 Route::get('/cart', CartPage::class);
 Route::get('/faq', FaqPage::class);
+Route::get('/my-order',MyOrderPage::class)->name('orders');
+Route::get('/my-order/{order_id}', MyOrderDetail::class)->name('my-orders.show');
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
