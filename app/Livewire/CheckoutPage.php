@@ -93,7 +93,7 @@ class CheckoutPage extends Component
             Config::$is3ds = true;
 
             $transaction_details = [
-                'order_id' => 'MID' . $order->id . uniqid(), // This should ideally be something unique
+                'order_id' => $order->id, // This should ideally be something unique
                 'gross_amount' => $order->grand_total, // no decimal allowed for credit card
             ];
 
@@ -122,8 +122,8 @@ class CheckoutPage extends Component
                     'expire' => $cancel_url
                 ],
                 'expiry' => [
-                    'duration' => 20,
-                    'unit' => 'seconds'
+                    'duration' => 30,
+                    'unit' => 'minutes'
                 ]
             ];
 

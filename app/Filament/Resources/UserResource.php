@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
@@ -10,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -22,6 +22,7 @@ use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 
 class UserResource extends Resource
 {
@@ -43,9 +44,12 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->unique(ignoreRecord: true)
                     ->required(),
-                DateTimePicker::make('email_verified_at')
-                    ->label('Email Verified')
-                    ->default(now()),
+                Select::make('role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'customer' => 'Customer',
+                    ])
+                    ->required(),
                 TextInput::make('password')
                     ->password()
                     ->dehydrated(fn($state) => filled($state))
@@ -58,11 +62,12 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('email')
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
+                TextColumn::make('role')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
