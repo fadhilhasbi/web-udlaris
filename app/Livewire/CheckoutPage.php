@@ -9,6 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Redirect;
 
 #[Title('Checkout Keranjang - UD Laris')]
 class CheckoutPage extends Component
@@ -31,6 +32,7 @@ class CheckoutPage extends Component
 
     public function placeOrder()
     {
+        // Validate the form data
         $this->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -43,7 +45,6 @@ class CheckoutPage extends Component
         ]);
 
         $cart_items = CartManagement::getCartItemsFromCookie();
-
         $line_items = [];
 
         foreach ($cart_items as $item) {
@@ -65,6 +66,7 @@ class CheckoutPage extends Component
         $order->shipping_amount = 0;
         $order->shipping_method = 'none';
         $order->notes = 'Pesanan dilakukan oleh ' . auth()->user()->name;
+        $order->save();
 
         $address = new Address();
         $address->first_name = $this->first_name;
@@ -74,12 +76,16 @@ class CheckoutPage extends Component
         $address->city = $this->city;
         $address->state = $this->state;
         $address->zip_code = $this->zip_code;
+        $address->order_id = $order->id;
+        $address->save();
 
-        // $redirect_url = '';
-        $success_url = route('success');
-        $cancel_url = route('cancel');
+        $order->items()->createMany($cart_items);
+        CartManagement::clearCartItems();
 
-        if ($this->payment_method == 'midtrans') {
+        $success_url = route('success', ['order_id' => $order->id]);
+        $cancel_url = route('cancel', ['order_id' => $order->id]);
+
+        if ($this->payment_method === 'midtrans') {
             Config::$serverKey = config('services.midtrans.serverKey');
             Config::$clientKey = config('services.midtrans.clientKey');
             Config::$isProduction = false;
@@ -87,8 +93,8 @@ class CheckoutPage extends Component
             Config::$is3ds = true;
 
             $transaction_details = [
-                'order_id' => rand(),
-                'gross_amount' => $order->grand_total, // no decimal allowed for creditcard
+                'order_id' => 'MID' . $order->id . uniqid(), // This should ideally be something unique
+                'gross_amount' => $order->grand_total, // no decimal allowed for credit card
             ];
 
             $customer_details = [
@@ -112,43 +118,28 @@ class CheckoutPage extends Component
                 'item_details' => $line_items,
                 'customer_details' => $customer_details,
                 'callbacks' => [
-                    'success' => $success_url,
-                    'failure' => $cancel_url,
-                    'pending' => $cancel_url,
+                    'finish' => $success_url, // Redirect to success page after payment
+                    'expire' => $cancel_url
                 ],
+                'expiry' => [
+                    'duration' => 20,
+                    'unit' => 'seconds'
+                ]
             ];
 
+            Config::$overrideNotifUrl = route('midtrans.notification');
+
             $snapToken = Snap::getSnapToken($params);
-            $redirect_url = Snap::getSnapUrl($params);
-            // dd([$snapToken, $snapToken->$redirect_url]);
+            $redirect_url = Snap::getSnapUrl($params); // Correct method to generate the redirect URL
         } else {
+            // Handle Cash on Delivery (COD)
             $redirect_url = $success_url;
         }
 
-        // if ($this->payment_method == 'midtrans') {
-        //     Stripe::setApiKey(env('STRIPE_SECRET'));
-        //     $sessionCheckout = Session::create([
-        //         'payment_method_types' => ['card'],
-        //         'customer_email' => auth()->user()->email,
-        //         'line_items' => $line_items,
-        //         'mode' => 'payment',
-        //         'success_url' => route('success') . '?session_id={CHECKOUT_SESSION_ID}',
-        //         'cancel_url' => route('cancel'),
-        //     ]);
-
-        //     $redirect_url = $sessionCheckout->url;
-        // } else {
-        //     $redirect_url = route('success');
-        // }
-
-        $order->save();
-        $address->order_id = $order->id;
-        $address->save();
-        $order->items()->createMany($cart_items);
-        CartManagement::clearCartItems();
         return redirect($redirect_url);
-
     }
+
+
 
     public function render()
     {

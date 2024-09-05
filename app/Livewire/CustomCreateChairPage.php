@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\X3dChair;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use App\Models\X3dChairPart;
 
 class CustomCreateChairPage extends Component
 {
@@ -19,9 +20,12 @@ class CustomCreateChairPage extends Component
     public function render()
     {
         $x3d_chair = X3dChair::where('slug', $this->slug)->where('is_active',1)->firstOrFail();
-        // dd($x3d_tables->papan_filepath);
         return view('livewire.custom-create-chair-page', [
             'x3d_chair'=> $x3d_chair,
         ]);
+
     }
+
+
+
 }

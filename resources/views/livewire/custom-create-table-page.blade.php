@@ -2,7 +2,6 @@
     <section class="mt-8">
         <!-- Stepper -->
         <ul class="relative flex flex-row gap-x-2 max-w-xl mx-auto">
-
             <!-- Item -->
             <li class="shrink basis-0 flex-1 group">
                 <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">

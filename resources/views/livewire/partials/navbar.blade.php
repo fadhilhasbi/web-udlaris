@@ -116,9 +116,15 @@
                                     </a>
 
                                     <a class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                        href="#">
+                                        href="/user/profile">
                                         My Account
                                     </a>
+                                    @if (auth()->user()->email === 'admin@admin.com')
+                                    <a class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                        href="/admin">
+                                        Go to Admin Panel
+                                    </a>
+                                    @endif
                                     <!-- Authentication -->
                                     <form method="POST" action="{{ route('logout') }}" x-data>
                                         @csrf

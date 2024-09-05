@@ -2,7 +2,6 @@
     <section class="mt-8">
         <!-- Stepper -->
         <ul class="relative flex flex-row gap-x-2 max-w-xl mx-auto">
-
             <!-- Item -->
             <li class="shrink basis-0 flex-1 group">
                 <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
@@ -56,7 +55,6 @@
             <!-- End Item -->
         </ul>
         <!-- End Stepper -->
-
 
 
         <div class="m-6">
@@ -238,12 +236,27 @@
                     selectedModel3Price = price || 0;
                 }
 
+                // Update visualisasi pilihan
                 var allCards = document.querySelectorAll(`.card[onclick*="${type}"]`);
-                allCards.forEach(card => card.classList.remove('bg-blue-50', 'border-blue-600'));
+                allCards.forEach(card => {
+                    card.classList.remove('bg-blue-50', 'border-blue-600');
+                });
 
                 var selectedCard = document.querySelector(`.card[onclick="selectPart('${value}', '${type}', ${price})"]`);
                 if (selectedCard) {
                     selectedCard.classList.add('bg-blue-50', 'border-blue-600');
+                }
+
+                // Aktifkan tombol "Add To Cart" jika semua bagian dipilih
+                if (selectedModel1 && selectedModel2 && selectedModel3) {
+                    document.getElementById('addToCartBtn').disabled = false;
+                }
+            }
+
+            function addToCart() {
+                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                    document.getElementById('warningModal').style.display = 'flex';
+                    return;
                 }
             }
 
@@ -253,6 +266,7 @@
                     return;
                 }
 
+                // Masukkan model ke dalam X3D scene
                 var x3dContent = document.getElementById('x3dContent_0');
                 x3dContent.innerHTML = '';
 
@@ -265,6 +279,12 @@
                 if (selectedModel3) {
                     x3dContent.innerHTML += `<inline url="/storage/${selectedModel3}" />`;
                 }
+
+                [selectedModel1, selectedModel2, selectedModel3].forEach(function(model) {
+                    var inlineTag = document.createElement('inline');
+                    inlineTag.setAttribute('url', `/storage/${model}`);
+                    x3dContent.appendChild(inlineTag);
+                });
 
                 document.getElementById('userModel_0').style.display = 'block';
 
