@@ -23,7 +23,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Tabs;
 
-
 class X3dChairResource extends Resource
 {
     protected static ?string $model = X3dChair::class;

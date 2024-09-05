@@ -11,9 +11,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Kategori
-                    </span>
+                    <a href="/product-custom">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Category
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -27,9 +29,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Tipe Produk
-                    </span>
+                    <a href="/product-custom/kursi">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Product Type
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -44,7 +48,7 @@
                 </div>
                 <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Kustomisasi Produk
+                        Product Customization
                     </span>
                 </div>
             </li>
@@ -52,7 +56,12 @@
         </ul>
         <!-- End Stepper -->
 
+
         <div class="m-6">
+
+            <div>
+                <h3 class="flex justify-center  text-2xl">Tekan tombol a di keyboard jika hasil tidak muncul di box scene</h3>
+            </div>
             <h3 class="text-2xl">Part 1</h3>
             <!-- Card layout for choosing Papan -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -186,17 +195,12 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-4 mt-4">
+            <div>
                 <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                     Apply
                 </button>
-
-                <!-- Tambahkan ke Keranjang Button -->
-                <button onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-semibold text-white transition-all hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2 5m5-5v6m4-6v6M1 1h4l2 7h12m0 0l1 2m-1-2H7" />
-                    </svg>
-                    Add To Cart
+                <button onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    Tambah ke Keranjang
                 </button>
             </div>
 
@@ -211,6 +215,7 @@
             </div>
         </div>
 
+
         <script>
             var selectedModel1 = null;
             var selectedModel1Price = 0;
@@ -220,7 +225,6 @@
             var selectedModel3Price = 0;
 
             function selectPart(value, type, price) {
-                // Set pilihan model sesuai dengan bagian
                 if (type === 'model1') {
                     selectedModel1 = value;
                     selectedModel1Price = price || 0;
@@ -257,7 +261,6 @@
             }
 
             function applyChanges() {
-                // Pastikan semua bagian dipilih
                 if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
                     document.getElementById('warningModal').style.display = 'flex';
                     return;
@@ -265,8 +268,16 @@
 
                 // Masukkan model ke dalam X3D scene
                 var x3dContent = document.getElementById('x3dContent_0');
-                while (x3dContent.firstChild) {
-                    x3dContent.removeChild(x3dContent.firstChild);
+                x3dContent.innerHTML = '';
+
+                if (selectedModel1) {
+                    x3dContent.innerHTML += `<inline url="/storage/${selectedModel1}" />`;
+                }
+                if (selectedModel2) {
+                    x3dContent.innerHTML += `<inline url="/storage/${selectedModel2}" />`;
+                }
+                if (selectedModel3) {
+                    x3dContent.innerHTML += `<inline url="/storage/${selectedModel3}" />`;
                 }
 
                 [selectedModel1, selectedModel2, selectedModel3].forEach(function(model) {
@@ -277,9 +288,61 @@
 
                 document.getElementById('userModel_0').style.display = 'block';
 
-                // Hitung total harga dan tampilkan
                 var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
                 document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
+            }
+
+            function addToCart() {
+                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                    document.getElementById('warningModal').style.display = 'flex';
+                    return;
+                }
+
+                var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML;
+                var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
+
+                  //var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML; Ambil produk kustom yang sudah ada dalam keranjang
+                  var customProducts = JSON.parse(getCookie('custom_products') || '[]');
+
+                // Create a JSON object to store the custom product details
+                customProducts.push({
+                    x3dContent: x3dContentHtml,
+                    price: totalHarga
+                });
+
+                // Simpan kembali ke dalam cookie
+                setCookie('custom_products', JSON.stringify(customProducts), 7);
+
+                // Redirect to the cart page
+                window.location.href = "/cart";
+            }
+
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+
+            function closeWarningModal() {
+                document.getElementById('warningModal').style.display = 'none';
             }
         </script>
     </section>

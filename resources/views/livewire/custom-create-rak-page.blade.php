@@ -11,9 +11,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Kategori
-                    </span>
+                    <a href="/product-custom">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Category
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -27,9 +29,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Tipe Produk
-                    </span>
+                    <a href="/product-custom/rak">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Product Type
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -44,7 +48,7 @@
                 </div>
                 <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Kustomisasi Produk
+                        Product Customization
                     </span>
                 </div>
             </li>
@@ -186,9 +190,14 @@
                 </div>
             </div>
 
-            <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                Apply
-            </button>
+            <div>
+                <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    Apply
+                </button>
+                <button onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    Tambah ke Keranjang
+                </button>
+            </div>
         </div>
 
         <!-- Error Warning Modal -->
@@ -229,7 +238,7 @@
                 }
             }
 
-            function applyChanges() {cabinet
+            function applyChanges() {
                 if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
                     document.getElementById('warningModal').style.display = 'flex';
                     return;
@@ -252,6 +261,54 @@
 
                 var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
                 document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
+            }
+
+            function addToCart() {
+                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                    document.getElementById('warningModal').style.display = 'flex';
+                    return;
+                }
+
+                var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML;
+                var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
+
+                // Ambil produk kustom yang sudah ada dalam keranjang
+                var customProducts = JSON.parse(getCookie('custom_products') || '[]');
+
+                // Tambahkan produk kustom baru ke array
+                customProducts.push({
+                    x3dContent: x3dContentHtml,
+                    price: totalHarga
+                });
+
+                // Simpan kembali ke dalam cookie
+                setCookie('custom_products', JSON.stringify(customProducts), 7);
+
+                // Redirect ke halaman keranjang
+                window.location.href = "/cart";
+            }
+
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
             }
 
             function closeWarningModal() {

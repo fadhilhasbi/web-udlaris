@@ -11,9 +11,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Kategori
-                    </span>
+                    <a href="/product-custom">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Category
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -27,12 +29,32 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
+                    <a href="/product-custom/meja">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Product Type
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <!-- End Item -->
+
+            <!-- Item -->
+            <li class="shrink basis-0 flex-1 group">
+                <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
+                    <span class="size-7 flex justify-center items-center flex-shrink-0 bg-blue-600 font-medium text-white rounded-full dark:bg-gray-700 dark:text-white">
+                        3
+                    </span>
+                    <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
+                </div>
+                <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Tipe Produk
+                        Product Customization
                     </span>
                 </div>
             </li>
             <!-- End Item -->
+        </ul>
+        <!-- End Stepper -->
 
             <!-- Item -->
             <li class="shrink basis-0 flex-1 group">
@@ -186,9 +208,14 @@
                 </div>
             </div>
 
-            <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                Apply
-            </button>
+            <div>
+                <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    Apply
+                </button>
+                <button onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    Tambah ke Keranjang
+                </button>
+            </div>
         </div>
 
         <!-- Error Warning Modal -->
@@ -253,6 +280,55 @@
                 var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
                 document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
             }
+
+            function addToCart() {
+                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                    document.getElementById('warningModal').style.display = 'flex';
+                    return;
+                }
+
+                var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML;
+                var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
+
+                  //var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML; Ambil produk kustom yang sudah ada dalam keranjang
+                  var customProducts = JSON.parse(getCookie('custom_products') || '[]');
+
+                // Create a JSON object to store the custom product details
+                customProducts.push({
+                    x3dContent: x3dContentHtml,
+                    price: totalHarga
+                });
+
+                // Simpan kembali ke dalam cookie
+                setCookie('custom_products', JSON.stringify(customProducts), 7);
+
+                // Redirect to the cart page
+                window.location.href = "/cart";
+            }
+
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
 
             function closeWarningModal() {
                 document.getElementById('warningModal').style.display = 'none';
