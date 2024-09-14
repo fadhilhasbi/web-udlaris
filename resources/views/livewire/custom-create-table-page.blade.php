@@ -213,7 +213,7 @@
                 <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                     Apply
                 </button>
-                <button onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                <button id="addToCartButton" onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800" style="display: none;">
                     Tambah ke Keranjang
                 </button>
             </div>
@@ -280,6 +280,9 @@
 
                 var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
                 document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
+
+               // Tampilkan tombol "Tambah ke Keranjang" setelah applyChanges() berhasil dijalankan
+                document.getElementById('addToCartButton').style.display = 'inline-flex';
             }
 
             function addToCart() {
@@ -292,7 +295,7 @@
                 var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
 
                   //var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML; Ambil produk kustom yang sudah ada dalam keranjang
-                  var customProducts = JSON.parse(getCookie('custom_products') || '[]');
+                var customProducts = JSON.parse(getCookie('custom_products') || '[]');
 
                 // Create a JSON object to store the custom product details
                 customProducts.push({
@@ -334,6 +337,30 @@
             function closeWarningModal() {
                 document.getElementById('warningModal').style.display = 'none';
             }
+
+            window.onload = function() {
+            // Pilih default dari model1, model2, dan model3
+            const defaultModel1 = document.querySelectorAll('.card[onclick*="model1"]')[0];
+            const defaultModel2 = document.querySelectorAll('.card[onclick*="model2"]')[0];
+            const defaultModel3 = document.querySelectorAll('.card[onclick*="model3"]')[0];
+
+            if (defaultModel1) {
+                const model1OnClick = defaultModel1.getAttribute('onclick');
+                eval(model1OnClick);  // Eksekusi fungsi selectPart untuk default model1
+            }
+
+            if (defaultModel2) {
+                const model2OnClick = defaultModel2.getAttribute('onclick');
+                eval(model2OnClick);  // Eksekusi fungsi selectPart untuk default model2
+            }
+
+            if (defaultModel3) {
+                const model3OnClick = defaultModel3.getAttribute('onclick');
+                eval(model3OnClick);  // Eksekusi fungsi selectPart untuk default model3
+            }
+        }
+
+
         </script>
     </section>
 </div>
