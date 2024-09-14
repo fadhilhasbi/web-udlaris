@@ -199,151 +199,155 @@
                 <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                     Apply
                 </button>
-                <button onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                <button id="addToCartButton" onclick="addToCart()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800" style="display: none;">
                     Tambah ke Keranjang
                 </button>
             </div>
 
-        </div>
-
-        <!-- Error Warning Modal -->
-        <div id="warningModal" class="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-75" style="display: none;">
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                <h2 class="text-lg font-bold">Warning</h2>
-                <p>You must choose your product 3D model part.</p>
-                <button onclick="closeWarningModal()" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded">OK</button>
             </div>
-        </div>
 
+            <!-- Error Warning Modal -->
+            <div id="warningModal" class="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-75" style="display: none;">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h2 class="text-lg font-bold">Warning</h2>
+                    <p>You must choose your product 3D model part.</p>
+                    <button onclick="closeWarningModal()" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded">OK</button>
+                </div>
+            </div>
 
-        <script>
-            var selectedModel1 = null;
-            var selectedModel1Price = 0;
-            var selectedModel2 = null;
-            var selectedModel2Price = 0;
-            var selectedModel3 = null;
-            var selectedModel3Price = 0;
+            <script>
+                var selectedModel1 = null;
+                var selectedModel1Price = 0;
+                var selectedModel2 = null;
+                var selectedModel2Price = 0;
+                var selectedModel3 = null;
+                var selectedModel3Price = 0;
 
-            function selectPart(value, type, price) {
-                if (type === 'model1') {
-                    selectedModel1 = value;
-                    selectedModel1Price = price || 0;
-                } else if (type === 'model2') {
-                    selectedModel2 = value;
-                    selectedModel2Price = price || 0;
-                } else if (type === 'model3') {
-                    selectedModel3 = value;
-                    selectedModel3Price = price || 0;
-                }
-
-                // Update visualisasi pilihan
-                var allCards = document.querySelectorAll(`.card[onclick*="${type}"]`);
-                allCards.forEach(card => {
-                    card.classList.remove('bg-blue-50', 'border-blue-600');
-                });
-
-                var selectedCard = document.querySelector(`.card[onclick="selectPart('${value}', '${type}', ${price})"]`);
-                if (selectedCard) {
-                    selectedCard.classList.add('bg-blue-50', 'border-blue-600');
-                }
-
-                // Aktifkan tombol "Add To Cart" jika semua bagian dipilih
-                if (selectedModel1 && selectedModel2 && selectedModel3) {
-                    document.getElementById('addToCartBtn').disabled = false;
-                }
-            }
-
-            function addToCart() {
-                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
-                    document.getElementById('warningModal').style.display = 'flex';
-                    return;
-                }
-            }
-
-            function applyChanges() {
-                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
-                    document.getElementById('warningModal').style.display = 'flex';
-                    return;
-                }
-
-                // Masukkan model ke dalam X3D scene
-                var x3dContent = document.getElementById('x3dContent_0');
-                x3dContent.innerHTML = '';
-
-                if (selectedModel1) {
-                    x3dContent.innerHTML += `<inline url="/storage/${selectedModel1}" />`;
-                }
-                if (selectedModel2) {
-                    x3dContent.innerHTML += `<inline url="/storage/${selectedModel2}" />`;
-                }
-                if (selectedModel3) {
-                    x3dContent.innerHTML += `<inline url="/storage/${selectedModel3}" />`;
-                }
-
-                [selectedModel1, selectedModel2, selectedModel3].forEach(function(model) {
-                    var inlineTag = document.createElement('inline');
-                    inlineTag.setAttribute('url', `/storage/${model}`);
-                    x3dContent.appendChild(inlineTag);
-                });
-
-                document.getElementById('userModel_0').style.display = 'block';
-
-                var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
-                document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
-            }
-
-            function addToCart() {
-                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
-                    document.getElementById('warningModal').style.display = 'flex';
-                    return;
-                }
-
-                var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML;
-                var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
-
-                  //var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML; Ambil produk kustom yang sudah ada dalam keranjang
-                  var customProducts = JSON.parse(getCookie('custom_products') || '[]');
-
-                // Create a JSON object to store the custom product details
-                customProducts.push({
-                    x3dContent: x3dContentHtml,
-                    price: totalHarga
-                });
-
-                // Simpan kembali ke dalam cookie
-                setCookie('custom_products', JSON.stringify(customProducts), 7);
-
-                // Redirect to the cart page
-                window.location.href = "/cart";
-            }
-
-            function setCookie(cname, cvalue, exdays) {
-                const d = new Date();
-                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-                let expires = "expires="+d.toUTCString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            }
-
-            function getCookie(cname) {
-                let name = cname + "=";
-                let decodedCookie = decodeURIComponent(document.cookie);
-                let ca = decodedCookie.split(';');
-                for(let i = 0; i <ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) == ' ') {
-                        c = c.substring(1);
+                function selectPart(value, type, price) {
+                    if (type === 'model1') {
+                        selectedModel1 = value;
+                        selectedModel1Price = price || 0;
+                    } else if (type === 'model2') {
+                        selectedModel2 = value;
+                        selectedModel2Price = price || 0;
+                    } else if (type === 'model3') {
+                        selectedModel3 = value;
+                        selectedModel3Price = price || 0;
                     }
-                    if (c.indexOf(name) == 0) {
-                        return c.substring(name.length, c.length);
+
+                    var allCards = document.querySelectorAll(`.card[onclick*="${type}"]`);
+                    allCards.forEach(card => card.classList.remove('bg-blue-50', 'border-blue-600'));
+
+                    var selectedCard = document.querySelector(`.card[onclick="selectPart('${value}', '${type}', ${price})"]`);
+                    if (selectedCard) {
+                        selectedCard.classList.add('bg-blue-50', 'border-blue-600');
                     }
                 }
-                return "";
+
+                function applyChanges() {
+                    if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                        document.getElementById('warningModal').style.display = 'flex';
+                        return;
+                    }
+
+                    var x3dContent = document.getElementById('x3dContent_0');
+                    x3dContent.innerHTML = '';
+
+                    if (selectedModel1) {
+                        x3dContent.innerHTML += `<inline url="/storage/${selectedModel1}" />`;
+                    }
+                    if (selectedModel2) {
+                        x3dContent.innerHTML += `<inline url="/storage/${selectedModel2}" />`;
+                    }
+                    if (selectedModel3) {
+                        x3dContent.innerHTML += `<inline url="/storage/${selectedModel3}" />`;
+                    }
+
+                    document.getElementById('userModel_0').style.display = 'block';
+
+                    var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
+                    document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
+
+                   // Tampilkan tombol "Tambah ke Keranjang" setelah applyChanges() berhasil dijalankan
+                    document.getElementById('addToCartButton').style.display = 'inline-flex';
+                }
+
+                function addToCart() {
+                    if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                        document.getElementById('warningModal').style.display = 'flex';
+                        return;
+                    }
+
+                    var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML;
+                    var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
+
+                      //var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML; Ambil produk kustom yang sudah ada dalam keranjang
+                    var customProducts = JSON.parse(getCookie('custom_products') || '[]');
+
+                    // Create a JSON object to store the custom product details
+                    customProducts.push({
+                        x3dContent: x3dContentHtml,
+                        price: totalHarga
+                    });
+
+                    // Simpan kembali ke dalam cookie
+                    setCookie('custom_products', JSON.stringify(customProducts), 7);
+
+                    // Redirect to the cart page
+                    window.location.href = "/cart";
+                }
+
+                function setCookie(cname, cvalue, exdays) {
+                    const d = new Date();
+                    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                    let expires = "expires="+d.toUTCString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                }
+
+                function getCookie(cname) {
+                    let name = cname + "=";
+                    let decodedCookie = decodeURIComponent(document.cookie);
+                    let ca = decodedCookie.split(';');
+                    for(let i = 0; i <ca.length; i++) {
+                        let c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+
+
+                function closeWarningModal() {
+                    document.getElementById('warningModal').style.display = 'none';
+                }
+
+                window.onload = function() {
+                // Pilih default dari model1, model2, dan model3
+                const defaultModel1 = document.querySelectorAll('.card[onclick*="model1"]')[0];
+                const defaultModel2 = document.querySelectorAll('.card[onclick*="model2"]')[0];
+                const defaultModel3 = document.querySelectorAll('.card[onclick*="model3"]')[0];
+
+                if (defaultModel1) {
+                    const model1OnClick = defaultModel1.getAttribute('onclick');
+                    eval(model1OnClick);  // Eksekusi fungsi selectPart untuk default model1
+                }
+
+                if (defaultModel2) {
+                    const model2OnClick = defaultModel2.getAttribute('onclick');
+                    eval(model2OnClick);  // Eksekusi fungsi selectPart untuk default model2
+                }
+
+                if (defaultModel3) {
+                    const model3OnClick = defaultModel3.getAttribute('onclick');
+                    eval(model3OnClick);  // Eksekusi fungsi selectPart untuk default model3
+                }
             }
 
 
-            function closeWarningModal() {
-                document.getElementById('warningModal').style.display = 'none';
-            }
-        </script>
+            </script>
     </section>
 </div>
