@@ -53,14 +53,6 @@
                         <h2 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-400">Order details</h2>
                         <div
                             class="flex w-full flex-col items-center justify-center space-y-4 border-b border-gray-200 pb-4 dark:border-gray-700">
-                            @foreach ($order->items as $item)
-                                <div class="flex w-full justify-between">
-                                    <p class="text-base leading-4 text-gray-800 dark:text-gray-400">
-                                        {{ $item->name }}</p>
-                                    <p class="text-base leading-4 text-gray-600 dark:text-gray-400">
-                                        {{ Number::currency($item->unit_amount * $item->quantity, 'IDR') }}</p>
-                                </div>
-                            @endforeach
                             <div class="flex w-full justify-between">
                                 <p class="text-base leading-4 text-gray-800 dark:text-gray-400">Subtotal</p>
                                 <p class="text-base leading-4 text-gray-600 dark:text-gray-400">
@@ -116,6 +108,7 @@
                     class="w-full rounded-md bg-blue-500 px-4 py-2 text-center text-gray-50 hover:bg-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:w-auto">
                     View My Orders
                 </a>
+                <a href="/invoice/{{$order->id}}" class="bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-500 btn-sm float-end">View Invoice</a>
             </div>
         </div>
     </div>

@@ -230,4 +230,12 @@
         </div>
       </div>
     </div>
+    <div class="mt-6 flex items-center justify-end gap-4 px-4">
+        <a href="{{ route('downloadinvoice', ['order_id' => $order->id]) }}" target="_blank" class="bg-slate-600 text-white py-2 px-6 rounded-md hover:bg-slate-500 btn-sm float-end">
+            Download Invoice
+        </a>
+        <a href="/invoice/{{$order->id}}" target="_blank" class="bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-500 btn-sm float-end">
+            View Invoice
+        </a>
+    </div>
   </div>

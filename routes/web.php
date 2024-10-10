@@ -4,6 +4,7 @@ use App\Livewire\CartPage;
 use App\Livewire\FaqPage;
 use App\Livewire\HomePage;
 use App\Livewire\CancelPage;
+use App\Livewire\InvoiceController;
 use App\Livewire\MyOrderDetail;
 use App\Livewire\MyOrderPage;
 use App\Livewire\SuccessPage;
@@ -22,6 +23,7 @@ use App\Livewire\CustomCreateChairPage;
 use App\Livewire\CustomCreateTablePage;
 use App\Livewire\CustomCreateCabinetPage;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\InvoiceDownload;
 
 /*
 |-------------------------------------------------------->>>>>>> develop------------------
@@ -42,6 +44,12 @@ Route::get('/cart', CartPage::class);
 Route::get('/faq', FaqPage::class);
 Route::get('/my-order',MyOrderPage::class)->name('orders');
 Route::get('/my-order/{order_id}', MyOrderDetail::class)->name('my-orders.show');
+Route::get('/invoice/{order_id}',InvoiceController::class)->name('ViewInvoice');
+Route::get('/invoice/{order_id}/downloadinvoice', [InvoiceDownload::class, 'download'])->name('downloadinvoice');
+
+
+
+
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
