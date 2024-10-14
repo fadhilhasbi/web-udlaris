@@ -24,7 +24,9 @@ class ProductDetailPage extends Component
 
     public function increaseQty()
     {
-        $this->quantity++;
+        if ($this->quantity < $this->getProduct()->quantity) { // Limit based on stock
+            $this->quantity++;
+        }
     }
 
     public function decreaseQty()
@@ -33,6 +35,10 @@ class ProductDetailPage extends Component
             $this->quantity--;
         }
     }
+    public function getProduct()
+{
+    return Product::where('slug', $this->slug)->firstOrFail();
+}
 
     // add product to cart
     public function addToCart($product_id)

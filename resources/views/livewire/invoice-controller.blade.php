@@ -185,12 +185,13 @@
             </tr>
         </tbody>
     </table>
+    @if (!request()->routeIs('downloadinvoice'))
     <div class="pt-5">
         <a href="{{ route('downloadinvoice', ['order_id' => $order->id]) }}" target="_blank" class="bg-slate-600 text-white py-2 px-6 rounded-md hover:bg-slate-500 btn-sm float-end">
             Download Invoice
         </a>
     </div>
-
+@endif
         <br>
     <p class="text-center">
         Thank you for shopping with UD Laris Yogyakarta

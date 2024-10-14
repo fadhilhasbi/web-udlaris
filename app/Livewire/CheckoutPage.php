@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Helpers\CartManagement;
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\Product;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Midtrans\Config;
@@ -79,6 +80,16 @@ class CheckoutPage extends Component
         $address->order_id = $order->id;
         $address->save();
 
+        // Update product stock
+    foreach ($cart_items as $item) {
+        $product = Product::find($item['product_id']);
+        if ($product) {
+            $product->quantity -= $item['quantity'];
+            $product->in_stock = $product->quantity > 0; // Update in_stock status
+            $product->save();
+        }
+    }
+
         $order->items()->createMany($cart_items);
         CartManagement::clearCartItems();
 
@@ -122,8 +133,8 @@ class CheckoutPage extends Component
                     'expire' => $cancel_url
                 ],
                 'expiry' => [
-                    'duration' => 20,
-                    'unit' => 'seconds'
+                    'duration' => 10,
+                    'unit' => 'minutes'
                 ]
             ];
 
@@ -138,6 +149,7 @@ class CheckoutPage extends Component
 
         return redirect($redirect_url);
     }
+
 
 
 

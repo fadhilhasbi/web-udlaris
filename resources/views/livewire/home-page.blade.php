@@ -61,7 +61,7 @@
             <div class="mt-10 grid grid-cols-2 gap-6 lg:mt-16 lg:grid-cols-4 lg:gap-4">
                 @foreach ($products as $product)
                     <a href="/products/{{ $product->slug }}" class="group block">
-                        <img src="{{ url('storage', $product->image[0]) }}" alt="{{ $product->name }}"
+                       <img src="{{ url('storage', $product->image[0]) }}" alt="{{ $product->name }}"
                             class="aspect-square w-full rounded object-cover" />
 
                         <div class="mt-3">
