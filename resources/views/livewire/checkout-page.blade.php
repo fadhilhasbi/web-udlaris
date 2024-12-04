@@ -1,4 +1,5 @@
-<div class="mx-auto w-full flex-grow border-y border-gray-200 bg-gray-100 px-4 py-10 shadow-md dark:border-gray-700 dark:bg-slate-800 sm:px-6 lg:px-8">
+<div
+    class="mx-auto w-full flex-grow border-y border-gray-200 bg-gray-100 px-4 py-10 shadow-md dark:border-gray-700 dark:bg-slate-800 sm:px-6 lg:px-8">
     <div class="mx-auto w-full max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8">
         <h1 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
             Checkout
@@ -108,8 +109,8 @@
                         </div>
                         <ul class="grid w-full gap-6 md:grid-cols-2">
                             <li>
-                                <input wire:model="payment_method" class="peer hidden" id="payment_method1" type="radio"
-                                    value="cod" />
+                                <input wire:model="payment_method" class="peer hidden" id="payment_method1"
+                                    type="radio" value="cod" />
                                 <label
                                     class="inline-flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-200 bg-white p-5 text-gray-500 hover:bg-gray-100 hover:text-gray-600 peer-checked:border-blue-600 peer-checked:text-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:peer-checked:text-blue-500"
                                     for="payment_method1">
@@ -127,8 +128,8 @@
                                 </label>
                             </li>
                             <li>
-                                <input wire:model="payment_method" class="peer hidden" id="payment_method2" type="radio"
-                                    value="midtrans">
+                                <input wire:model="payment_method" class="peer hidden" id="payment_method2"
+                                    type="radio" value="midtrans">
                                 <label
                                     class="inline-flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-200 bg-white p-5 text-gray-500 hover:bg-gray-100 hover:text-gray-600 peer-checked:border-blue-600 peer-checked:text-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:peer-checked:text-blue-500"
                                     for="payment_method2">
@@ -163,9 +164,26 @@
                                 Subtotal
                             </span>
                             <span>
-                                {{ Number::currency($grand_total, 'IDR') }}
+                                @php
+                                    $subtotal = 0; // Inisialisasi subtotal
+                                @endphp
+
+                                @foreach ($cart_items as $item)
+                                    @php
+                                        $subtotal += $item['total_amount']; // Tambahkan harga item dari cart_items
+                                    @endphp
+                                @endforeach
+
+                                @foreach ($custom_products as $customProduct)
+                                    @php
+                                        $subtotal += $customProduct['price']; // Tambahkan harga item dari custom_products
+                                    @endphp
+                                @endforeach
+
+                                {{ Number::currency($subtotal, 'IDR') }} <!-- Cetak subtotal dalam satu elemen -->
                             </span>
                         </div>
+
                         <div class="mb-2 flex justify-between font-bold text-gray-700 dark:text-white">
                             <span>
                                 Taxes
@@ -174,6 +192,7 @@
                                 {{ Number::currency(0, 'IDR') }}
                             </span>
                         </div>
+
                         <div class="mb-2 flex justify-between font-bold text-gray-700 dark:text-white">
                             <span>
                                 Shipping Cost
@@ -182,13 +201,15 @@
                                 {{ Number::currency(0, 'IDR') }}
                             </span>
                         </div>
+
                         <hr class="my-4 h-1 rounded bg-slate-400 dark:bg-slate-700">
+
                         <div class="mb-2 flex justify-between font-bold text-gray-700 dark:text-white">
                             <span>
                                 Grand Total
                             </span>
                             <span>
-                                {{ Number::currency($grand_total, 'IDR') }}
+                                {{ Number::currency($subtotal, 'IDR') }} <!-- Gunakan subtotal untuk Grand Total -->
                             </span>
                         </div>
                         </hr>
@@ -203,6 +224,7 @@
                         <div class="mb-2 text-xl font-bold text-gray-700 underline dark:text-white">
                             BASKET SUMMARY
                         </div>
+                        {{-- Produk Biasa --}}
                         <ul class="divide-y divide-gray-200 dark:divide-gray-700" role="list">
                             @foreach ($cart_items as $items)
                                 <li class="py-3 sm:py-4" wire:key='{{ $items['product_id'] }}'>
@@ -210,7 +232,6 @@
                                         <div class="flex-shrink-0">
                                             <img alt="{{ $items['name'] }}" class="h-12 w-12 rounded-full"
                                                 src="{{ url('storage', $items['image']) }}">
-                                            </img>
                                         </div>
                                         <div class="ms-4 min-w-0 flex-1">
                                             <p class="truncate text-sm font-medium text-gray-900 dark:text-white">
@@ -228,19 +249,48 @@
                                 </li>
                             @endforeach
                         </ul>
+
+                        {{-- Produk Kustom --}}
+                        <ul class="divide-y divide-gray-200 dark:divide-gray-700 mt-4" role="list">
+                            @foreach ($custom_products as $customProduct)
+                                <li class="py-3 sm:py-4" wire:key='custom-{{ $customProduct['id'] }}'>
+                                    <div class="flex items-center">
+                                        <div
+                                            class="flex-shrink-0 h-12 w-12 rounded-full bg-gray-200 dark:bg-slate-700">
+                                            <!-- Render X3D Thumbnail -->
+                                            <x3d width="100%" height="100%">
+                                                <scene>
+                                                    {!! $customProduct['x3dContent'] !!}
+                                                </scene>
+                                            </x3d>
+                                        </div>
+                                        <div class="ms-4 min-w-0 flex-1">
+                                            <p class="truncate text-sm font-medium text-gray-900 dark:text-white">
+                                                {{ $customProduct['name'] }}
+                                            </p>
+                                            <p class="truncate text-sm text-gray-500 dark:text-gray-400">
+                                                Custom Size: {{ $customProduct[''] ?? 'Default Size' }}
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            {{ Number::currency($customProduct['price'], 'IDR') }}
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
-                </div>
-            </div>
-            @if ($payment_method == 'midtrans' && isset($snapToken))
-                <script src="https://app.sandbox.midtrans.com/snap/snap.js"
-                    data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
-                <script type="text/javascript">
-                    document.getElementById('pay-button').onclick = function() {
-                        // SnapToken acquired from previous step
-                        snap.pay('{{ $snapToken }}');
-                    };
-                </script>
-            @endif
+                    @if ($payment_method == 'midtrans' && isset($snapToken))
+                        <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+                            data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+                        <script type="text/javascript">
+                            document.getElementById('pay-button').onclick = function() {
+                                // SnapToken acquired from previous step
+                                snap.pay('{{ $snapToken }}');
+                            };
+                        </script>
+                    @endif
         </form>
     </div>
 </div>

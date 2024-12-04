@@ -54,12 +54,7 @@
                         <div
                             class="flex w-full flex-col items-center justify-center space-y-4 border-b border-gray-200 pb-4 dark:border-gray-700">
                             @foreach ($order->items as $item)
-                                <div class="flex w-full justify-between">
-                                    <p class="text-base leading-4 text-gray-800 dark:text-gray-400">
-                                        {{ $item->name }}</p>
-                                    <p class="text-base leading-4 text-gray-600 dark:text-gray-400">
-                                        {{ Number::currency($item->unit_amount * $item->quantity, 'IDR') }}</p>
-                                </div>
+
                             @endforeach
                             <div class="flex w-full justify-between">
                                 <p class="text-base leading-4 text-gray-800 dark:text-gray-400">Subtotal</p>
