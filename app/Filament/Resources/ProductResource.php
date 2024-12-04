@@ -90,11 +90,23 @@ class ProductResource extends Resource
                                 TextInput::make('sku')
                                     ->label('Kode Barang (SKU)')
                                     ->required()
-                                    ->unique(ignoreRecord: true),
+                                    ->disabled(function (string $operation) {
+                                        return $operation === 'edit'; // Disable only on edit
+                                    }),
+
                                 TextInput::make('quantity')
                                     ->label('Jumlah Tersedia')
                                     ->required()
                                     ->minValue(0)
+                                    ->afterStateUpdated(function ($state, Set $set) {
+                                        // Automatically toggle 'in_stock' off if stock <= 0
+                                        if ($state <= 0) {
+                                            $set('in_stock', false);
+                                        } else if ($state > 0) {
+                                            $set('in_stock', true);
+                                        }
+                                    }),
+
                             ])->columns(3),
                     ]),
 
@@ -165,12 +177,12 @@ class ProductResource extends Resource
                 EditAction::make(),
                 ActionGroup::make([
                     ViewAction::make(),
-                    DeleteAction::make(),
+                    // DeleteAction::make(),
                 ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

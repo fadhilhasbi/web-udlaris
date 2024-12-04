@@ -254,4 +254,10 @@
         </div>
       </div>
     </div>
+
+    <div class="mt-4 flex items-center justify-start gap-4 px-4">
+        <a href="/invoice/{{$order->id}}"class="bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-500 btn-sm float-end">
+            View Invoice
+        </a>
+    </div>
   </div>

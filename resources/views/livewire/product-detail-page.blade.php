@@ -2,6 +2,7 @@
     <section class="font-poppins overflow-hidden py-11">
         <div class="mx-auto max-w-6xl px-4 py-4 md:px-6 lg:py-8">
             <div class="-mx-4 flex flex-wrap">
+                <!-- Product Image Section -->
                 <div class="mb-8 w-full md:mb-0 md:w-1/2" x-data="{ mainImage: '{{ url('storage', $product->image[0]) }}' }">
                     <div class="sticky top-0 z-50 overflow-hidden">
                         <div class="relative mb-6 lg:mb-10 lg:h-2/4">
@@ -31,6 +32,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Product Details Section -->
                 <div class="w-full px-4 md:w-1/2">
                     <div class="lg:pl-20">
                         <div class="mb-8">
@@ -40,13 +43,22 @@
                                 <span>
                                     {{ Number::currency($product->price, 'IDR') }}
                                 </span>
-                                {{-- <span
-                                    class="text-base font-normal text-gray-500 line-through dark:text-gray-400">Rp. 83.999</span> --}}
                             </p>
                             <p class="max-w-md text-gray-700 dark:text-gray-400">
                                 {!! $product->description !!}
                             </p>
+
+                            <!-- Stock Availability -->
+                            <p class="mt-4 text-lg font-semibold {{ $product->quantity <= 0 ? 'text-red-500' : 'text-green-500' }}">
+                                @if ($product->quantity > 0)
+                                    In Stock: {{ $product->quantity }} items
+                                @else
+                                    Out of Stock
+                                @endif
+                            </p>
                         </div>
+
+                        <!-- Quantity Selector -->
                         <div class="mb-8 w-32">
                             <label for=""
                                 class="w-full border-b border-blue-300 pb-1 text-xl font-semibold text-gray-700 dark:border-gray-600 dark:text-gray-400">Quantity</label>
@@ -57,18 +69,22 @@
                                 </button>
                                 <input wire:model="quantity" type="number" readonly
                                     class="text-md flex w-full items-center border-none bg-gray-300 text-center font-semibold text-gray-700 placeholder-gray-700 outline-none hover:text-black focus:outline-none dark:bg-gray-900 dark:text-gray-400 dark:placeholder-gray-400"
-                                    placeholder="1">
+                                    placeholder="1" min="1" max="{{ $product->quantity }}">
                                 <button wire:click="increaseQty"
-                                    class="h-full w-20 cursor-pointer rounded-r bg-gray-300 text-gray-600 outline-none hover:bg-gray-400 hover:text-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700">
+                                    class="h-full w-20 cursor-pointer rounded-r bg-gray-300 text-gray-600 outline-none hover:bg-gray-400 hover:text-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700"
+                                    {{ $quantity >= $product->quantity ? 'disabled' : '' }}>
                                     <span class="m-auto text-2xl font-thin">+</span>
                                 </button>
                             </div>
                         </div>
+
+
+                        <!-- Add to Cart Button -->
                         <div class="flex flex-wrap items-center gap-4">
-                            <button
-                            wire:click="addToCart({{ $product->id }})"
+                            <button wire:click="addToCart({{ $product->id }})"
                                 class="w-full rounded-md bg-blue-500 p-4 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-blue-700 lg:w-2/5">
-                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">Add to cart</span><span wire:loading wire:target="addToCart({{ $product->id }})">Adding...</span>
+                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">Add to cart</span>
+                                <span wire:loading wire:target="addToCart({{ $product->id }})">Adding...</span>
                             </button>
                         </div>
                     </div>

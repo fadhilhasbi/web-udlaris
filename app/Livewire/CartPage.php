@@ -6,6 +6,7 @@ use App\Helpers\CartManagement;
 use App\Livewire\Partials\Navbar;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use App\Models\Product;
 
 #[Title('Keranjang Pesanan - UD Laris')]
 class CartPage extends Component
@@ -72,7 +73,29 @@ class CartPage extends Component
     {
         return array_sum(array_column($this->custom_products, 'price'));
     }
+    public function checkout()
+    {
+        foreach ($this->cart_items as $item) {
+            $product = Product::find($item['id']); // Fetch the product
 
+            if ($product) {
+                // Check if there is enough stock
+                if ($product->quantity >= $item['quantity']) {
+                    // Reduce the stock
+                    $product->quantity -= $item['quantity'];
+                    $product->save(); // Save the changes
+                } else {
+                    // Handle the case where there isn't enough stock
+                    session()->flash('error', 'Not enough stock for ' . $product->name);
+                    return;
+                }
+            }
+        }
+
+
+        session()->flash('success', 'Checkout successful!');
+        $this->mount(); // Refresh cart items
+    }
     public function render()
     {
         return view('livewire.cart-page');

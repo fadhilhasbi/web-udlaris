@@ -49,7 +49,9 @@ class ProductsPage extends Component
 
     public function render()
     {
-        $productQuery = Product::query()->where('is_active', 1);
+        $productQuery = Product::query()
+        ->where('is_active', 1)
+        ->where('in_stock', '>=', 1);
 
         if (!empty($this->selected_categories)) {
             $productQuery->whereHas('categories', function ($query) {

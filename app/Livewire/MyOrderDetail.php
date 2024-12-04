@@ -32,7 +32,7 @@ class MyOrderDetail extends Component
             'order_items' => $order_items,
             'address' =>$address,
             'order' => $order,
-            'custom_products' => $customProducts // Kirim data produk kustom ke v
+            'custom_products' => $customProducts
         ]);
     }
 }
