@@ -218,7 +218,8 @@
 
                 <!-- Modal to Display the X3D Content -->
                 <div id="x3dModal"
-                    class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center">
+                style="display: none"
+                    class="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center">
                     <div class="bg-white dark:bg-slate-800 rounded-lg p-4 max-w-4xl w-full">
                         <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Click Custom Model and then
                             click a on keyboard</h2>
@@ -235,13 +236,13 @@
                         // Set the content of the X3D model inside the modal
                         document.querySelector('#x3dDisplay scene').innerHTML = x3dContent;
                         // Show the modal
-                        document.getElementById('x3dModal').classList.remove('hidden');
+                        document.getElementById('x3dModal').style.display = 'flex';
                     }
 
                     // Close the modal
                     function closeModal() {
                         // Hide the modal
-                        document.getElementById('x3dModal').classList.add('hidden');
+                        document.getElementById('x3dModal').style.display = 'none';
                     }
                 </script>
 

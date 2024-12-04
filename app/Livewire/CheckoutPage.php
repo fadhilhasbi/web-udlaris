@@ -92,6 +92,18 @@ class CheckoutPage extends Component
         $address->order_id = $order->id;
         $address->save();
 
+        // new for customProduct
+        if (!empty($custom_products)) {
+            foreach ($custom_products as $customProduct) {
+                $order->orderCustomItem()->create([
+                    'custom_product_id' => $customProduct['id'],
+                    'name' => $customProduct['name'],
+                    'x3d_content' => $customProduct['x3dContent'],
+                    'price' => $customProduct['price'],
+                ]);
+            }
+        }
+
         $order->items()->createMany($cart_items);
         CartManagement::clearCartItems();
 
