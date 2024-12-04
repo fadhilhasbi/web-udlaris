@@ -12,9 +12,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Kategori
-                    </span>
+                    <a href="/product-custom">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Category
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -29,9 +31,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Tipe Produk
-                    </span>
+                    <a href="">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Product Type
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -46,9 +50,11 @@
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Kustomisasi Produk
-                    </span>
+                    <a href="">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Product Customization
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->

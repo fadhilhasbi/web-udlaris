@@ -48,6 +48,7 @@ class CheckoutPage extends Component
         $cart_items = CartManagement::getCartItemsFromCookie();
         $line_items = [];
 
+        // Add regular products to line items
         foreach ($cart_items as $item) {
             $line_items[] = [
                 'id' => $item['product_id'],
@@ -57,9 +58,21 @@ class CheckoutPage extends Component
             ];
         }
 
+        // Retrieve custom products from cookie
+        $custom_products = json_decode($_COOKIE['custom_products'] ?? '[]', true);
+
+        // Add custom products to line items
+        foreach ($custom_products as $customProduct) {
+            $line_items[] = [
+                'id' => $customProduct['id'], // Assuming you have an ID for custom products
+                'name' => $customProduct['name'], // Ensure you have the price in the custom product
+                'quantity' => 1, // Assuming quantity is 1 for custom products
+                'price' => $customProduct['price'],
+            ];
+        }
         $order = new Order();
         $order->user_id = auth()->user()->id;
-        $order->grand_total = CartManagement::calculateGrandTotal($cart_items);
+        $order->grand_total = CartManagement::calculateGrandTotal($cart_items) + $customProduct['price'];
         $order->payment_method = $this->payment_method;
         $order->payment_status = 'pending';
         $order->status = 'new';
@@ -79,6 +92,18 @@ class CheckoutPage extends Component
         $address->zip_code = $this->zip_code;
         $address->order_id = $order->id;
         $address->save();
+
+        // new for customProduct
+        if (!empty($custom_products)) {
+            foreach ($custom_products as $customProduct) {
+                $order->orderCustomItem()->create([
+                    'custom_product_id' => $customProduct['id'],
+                    'name' => $customProduct['name'],
+                    'x3d_content' => $customProduct['x3dContent'],
+                    'price' => $customProduct['price'],
+                ]);
+            }
+        }
 
         // Update product stock
     foreach ($cart_items as $item) {
@@ -104,7 +129,7 @@ class CheckoutPage extends Component
             Config::$is3ds = true;
 
             $transaction_details = [
-                'order_id' => 'MID' . $order->id . uniqid(), // This should ideally be something unique
+                'order_id' => $order->id, // This should ideally be something unique
                 'gross_amount' => $order->grand_total, // no decimal allowed for credit card
             ];
 
@@ -126,6 +151,7 @@ class CheckoutPage extends Component
 
             $params = [
                 'transaction_details' => $transaction_details,
+                'order_id' => 'order-' . auth()->id() . '-' . now()->timestamp, // Ensure this is unique
                 'item_details' => $line_items,
                 'customer_details' => $customer_details,
                 'callbacks' => [
@@ -133,7 +159,7 @@ class CheckoutPage extends Component
                     'expire' => $cancel_url
                 ],
                 'expiry' => [
-                    'duration' => 10,
+                    'duration' => 30,
                     'unit' => 'minutes'
                 ]
             ];
@@ -156,9 +182,17 @@ class CheckoutPage extends Component
     public function render()
     {
         $cart_items = CartManagement::getCartItemsFromCookie();
+        // Ambil data produk custom dari cookie
+        $custom_products = json_decode($_COOKIE['custom_products'] ?? '[]', true);
+
+        // Gabungkan produk custom ke dalam $cart_items
+        foreach ($custom_products as $customProduct) {
+            $customProduct = ['x3dContent'];
+        }
         $grand_total = CartManagement::calculateGrandTotal($cart_items);
         return view('livewire.checkout-page', [
             'cart_items' => $cart_items,
+            'custom_products' => $custom_products,
             'grand_total' => $grand_total
         ]);
     }

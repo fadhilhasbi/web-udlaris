@@ -5,15 +5,18 @@
             <!-- Item -->
             <li class="shrink basis-0 flex-1 group">
                 <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
-                    <span class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full dark:bg-gray-700 dark:text-white">
+                    <span
+                        class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full dark:bg-gray-700 dark:text-white">
                         1
                     </span>
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Kategori
-                    </span>
+                    <a href="/product-custom">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Category
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -21,15 +24,18 @@
             <!-- Item -->
             <li class="shrink basis-0 flex-1 group">
                 <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
-                    <span class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full dark:bg-gray-700 dark:text-white">
+                    <span
+                        class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full dark:bg-gray-700 dark:text-white">
                         2
                     </span>
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
-                    <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Tipe Produk
-                    </span>
+                    <a href="/product-custom/rak">
+                        <span class="block text-sm font-medium text-gray-800 dark:text-white">
+                            Select Product Type
+                        </span>
+                    </a>
                 </div>
             </li>
             <!-- End Item -->
@@ -37,14 +43,15 @@
             <!-- Item -->
             <li class="shrink basis-0 flex-1 group">
                 <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
-                    <span class="size-7 flex justify-center items-center flex-shrink-0 bg-blue-600 font-medium text-white rounded-full dark:bg-gray-700 dark:text-white">
+                    <span
+                        class="size-7 flex justify-center items-center flex-shrink-0 bg-blue-600 font-medium text-white rounded-full dark:bg-gray-700 dark:text-white">
                         3
                     </span>
                     <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Kustomisasi Produk
+                        Product Customization
                     </span>
                 </div>
             </li>
@@ -53,12 +60,17 @@
         <!-- End Stepper -->
 
         <div class="m-6">
+            <div>
+                <h3 class="flex justify-center  text-2xl">Tekan tombol a di keyboard jika hasil tidak muncul di box
+                    scene</h3>
+            </div>
             <h3 class="text-2xl">Part 1</h3>
             <!-- Card layout for choosing Papan -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach ($x3d_rak->model1_filepath as $item_model1_key => $item_model1)
                     <div class="card bg-white border rounded-lg shadow-md p-4 hover:shadow-lg cursor-pointer transition-transform transform-gpu hover:scale-105"
-                        onclick="selectPart('{{ $item_model1 }}', 'model1', {{ $x3d_rak->price1[$item_model1_key]['price1'] ?? 'null' }})" id="card_model1_{{ $item_model1_key }}">
+                        onclick="selectPart('{{ $item_model1 }}', 'model1', {{ $x3d_rak->price1[$item_model1_key]['price1'] ?? 'null' }})"
+                        id="card_model1_{{ $item_model1_key }}">
                         <div class="flex flex-col items-center">
                             <x3d width="100px" height="100px">
                                 <scene>
@@ -78,7 +90,7 @@
                                     <div class="mt-4">
                                         <h2 class="text-xl font-semibold">Harga:</h2>
                                         <p>
-                                            @if(is_array($x3d_rak->price1) && isset($x3d_rak->price1[$item_model1_key]))
+                                            @if (is_array($x3d_rak->price1) && isset($x3d_rak->price1[$item_model1_key]))
                                                 Rp{{ number_format($x3d_rak->price1[$item_model1_key]['price1'], 0, ',', '.') }}
                                             @else
                                                 Harga tidak tersedia
@@ -98,7 +110,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach ($x3d_rak->model2_filepath as $item_model2_key => $item_model2)
                     <div class="card bg-white border rounded-lg shadow-md p-4 hover:shadow-lg cursor-pointer transition-transform transform-gpu hover:scale-105"
-                        onclick="selectPart('{{ $item_model2 }}', 'model2', {{ $x3d_rak->price2[$item_model2_key]['price2'] ?? 'null' }})" id="card_model2_{{ $item_model2_key }}">
+                        onclick="selectPart('{{ $item_model2 }}', 'model2', {{ $x3d_rak->price2[$item_model2_key]['price2'] ?? 'null' }})"
+                        id="card_model2_{{ $item_model2_key }}">
                         <div class="flex flex-col items-center">
                             <x3d width="100px" height="100px">
                                 <scene>
@@ -118,7 +131,7 @@
                                     <div class="mt-4">
                                         <h2 class="text-xl font-semibold">Harga:</h2>
                                         <p>
-                                            @if(is_array($x3d_rak->price2) && isset($x3d_rak->price2[$item_model2_key]))
+                                            @if (is_array($x3d_rak->price2) && isset($x3d_rak->price2[$item_model2_key]))
                                                 Rp{{ number_format($x3d_rak->price2[$item_model2_key]['price2'], 0, ',', '.') }}
                                             @else
                                                 Harga tidak tersedia
@@ -138,7 +151,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach ($x3d_rak->model3_filepath as $item_model3_key => $item_model3)
                     <div class="card bg-white border rounded-lg shadow-md p-4 hover:shadow-lg cursor-pointer transition-transform transform-gpu hover:scale-105"
-                        onclick="selectPart('{{ $item_model3 }}', 'model3', {{ $x3d_rak->price3[$item_model3_key]['price3'] ?? 'null' }})" id="card_model3_{{ $item_model3_key }}">
+                        onclick="selectPart('{{ $item_model3 }}', 'model3', {{ $x3d_rak->price3[$item_model3_key]['price3'] ?? 'null' }})"
+                        id="card_model3_{{ $item_model3_key }}">
                         <div class="flex flex-col items-center">
                             <x3d width="100px" height="100px">
                                 <scene>
@@ -158,7 +172,7 @@
                                     <div class="mt-4">
                                         <h2 class="text-xl font-semibold">Harga:</h2>
                                         <p>
-                                            @if(is_array($x3d_rak->price3) && isset($x3d_rak->price3[$item_model3_key]))
+                                            @if (is_array($x3d_rak->price3) && isset($x3d_rak->price3[$item_model3_key]))
                                                 Rp{{ number_format($x3d_rak->price3[$item_model3_key]['price3'], 0, ',', '.') }}
                                             @else
                                                 Harga tidak tersedia
@@ -173,7 +187,8 @@
                 @endforeach
             </div>
 
-            <div class="my-6 min-h-60 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+            <div
+                class="my-6 min-h-60 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
                 <div class="flex flex-auto flex-col justify-center items-center p-4 md:p-5">
                     <h1 class="text-4xl text-blue-400">Hasil Kustomisasi</h1>
                     <span>Catatan: Tekan tombol a di keyboard jika hasil tidak muncul di box scene</span>
@@ -186,13 +201,23 @@
                 </div>
             </div>
 
-            <button onclick="applyChanges()" type="button" class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
-                Apply
-            </button>
+            <div>
+                <button onclick="applyChanges()" type="button"
+                    class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    Apply
+                </button>
+                <button id="addToCartButton" onclick="addToCart()" type="button"
+                    class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-green-600 py-2 px-3 text-sm font-semibold text-white transition-all hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                    style="display: none;">
+                    Tambah ke Keranjang
+                </button>
+            </div>
+
         </div>
 
         <!-- Error Warning Modal -->
-        <div id="warningModal" class="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-75" style="display: none;">
+        <div id="warningModal" class="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-75"
+            style="display: none;">
             <div class="bg-white p-6 rounded-lg shadow-lg text-center">
                 <h2 class="text-lg font-bold">Warning</h2>
                 <p>You must choose your product 3D model part.</p>
@@ -229,7 +254,7 @@
                 }
             }
 
-            function applyChanges() {cabinet
+            function applyChanges() {
                 if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
                     document.getElementById('warningModal').style.display = 'flex';
                     return;
@@ -251,11 +276,96 @@
                 document.getElementById('userModel_0').style.display = 'block';
 
                 var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
-                document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(totalHarga);
+                document.getElementById('totalHarga').innerText = 'Total Harga: Rp' + new Intl.NumberFormat('id-ID').format(
+                    totalHarga);
+
+                // Tampilkan tombol "Tambah ke Keranjang" setelah applyChanges() berhasil dijalankan
+                document.getElementById('addToCartButton').style.display = 'inline-flex';
             }
+
+            function addToCart() {
+                if (!selectedModel1 || !selectedModel2 || !selectedModel3) {
+                    document.getElementById('warningModal').style.display = 'flex';
+                    return;
+                }
+
+                // Ambil isi konten kustomisasi 3D
+                var x3dContentHtml = document.getElementById('x3dContent_0').innerHTML;
+
+                // Hitung total harga
+                var totalHarga = selectedModel1Price + selectedModel2Price + selectedModel3Price;
+
+                // Generate unique id dan name
+                var uniqueId = 'model' + 'rak' + ((Math.floor(Math.random() * 99) + 1) * 100);
+                var uniqueName = 'rak-' + 'custom-' + ((Math.floor(Math.random() * 99) + 1) * 100);
+
+
+                // Ambil produk kustom yang sudah ada dalam keranjang
+                var customProducts = JSON.parse(getCookie('custom_products') || '[]');
+
+                // Tambahkan produk baru
+                customProducts.push({
+                    id: uniqueId,
+                    name: uniqueName,
+                    x3dContent: x3dContentHtml,
+                    price: totalHarga
+                });
+
+                // Simpan kembali ke dalam cookie
+                setCookie('custom_products', JSON.stringify(customProducts), 7);
+
+                // Redirect ke halaman keranjang
+                window.location.href = "/cart";
+            }
+
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                let expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
 
             function closeWarningModal() {
                 document.getElementById('warningModal').style.display = 'none';
+            }
+
+            window.onload = function() {
+                // Pilih default dari model1, model2, dan model3
+                const defaultModel1 = document.querySelectorAll('.card[onclick*="model1"]')[0];
+                const defaultModel2 = document.querySelectorAll('.card[onclick*="model2"]')[0];
+                const defaultModel3 = document.querySelectorAll('.card[onclick*="model3"]')[0];
+
+                if (defaultModel1) {
+                    const model1OnClick = defaultModel1.getAttribute('onclick');
+                    eval(model1OnClick); // Eksekusi fungsi selectPart untuk default model1
+                }
+
+                if (defaultModel2) {
+                    const model2OnClick = defaultModel2.getAttribute('onclick');
+                    eval(model2OnClick); // Eksekusi fungsi selectPart untuk default model2
+                }
+
+                if (defaultModel3) {
+                    const model3OnClick = defaultModel3.getAttribute('onclick');
+                    eval(model3OnClick); // Eksekusi fungsi selectPart untuk default model3
+                }
             }
         </script>
     </section>

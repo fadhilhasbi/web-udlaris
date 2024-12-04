@@ -40,6 +40,8 @@ class OrderResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
     protected static ?string $navigationGroup = 'Content Management';
+    protected $with = ['customOrderItem'];
+
 
     public static function form(Form $form): Form
     {
@@ -152,7 +154,7 @@ class OrderResource extends Resource
                                         ->numeric()
                                         ->required(),
                                 ])->columns(12),
-                                Placeholder::make('grand_total_placeholder')
+                            Placeholder::make('grand_total_placeholder')
                                 ->label('Grand Total')
                                 ->content(function (Get $get, Set $set) {
                                     $total = 0;
@@ -166,9 +168,27 @@ class OrderResource extends Resource
                                     $set('grand_total', $total);
                                     return Number::currency($total, 'IDR');
                                 }),
-                                Hidden::make('grand_total')
+                            Hidden::make('grand_total')
                                 ->default(0)
+                        ]),
+
+                    Section::make('Custom Order Items')
+                        ->schema([
+                            Repeater::make('custom_order_items')
+                                ->relationship('orderCustomItem')
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->label('Custom Name')
+                                        ->disabled(),
+                                    TextInput::make('price')
+                                        ->label('Price')
+                                        ->numeric()
+                                        ->disabled(),
+                                ])
+                                ->columns(3)
                         ])
+                        ->collapsible(),
+
                 ])->columnSpanFull()
             ]);
     }
@@ -178,44 +198,45 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                ->label('Customer')
-                ->sortable()
-                ->searchable(),
+                    ->label('Customer')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('grand_total')
-                ->numeric()
-                ->sortable()
-                ->money('IDR'),
+                    ->numeric()
+                    ->sortable()
+                    ->money('IDR'),
                 TextColumn::make('payment_method')
-                ->searchable()
-                ->sortable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('payment_status')
-                ->searchable()
-                ->sortable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('currency')
-                ->searchable()
-                ->sortable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('shipping_method')
-                ->searchable()
-                ->sortable(),
+                    ->searchable()
+                    ->sortable(),
                 SelectColumn::make('status')
-                ->options([
-                    'new' => 'New',
-                    'processing' => 'Processing',
-                    'shipped' => 'Shipped',
-                    'delivered' => 'Delivered',
-                    'completed' => 'Completed',
-                    'cancelled' => 'Cancelled'
-                ])
-                ->searchable()
-                ->sortable(),
+                    ->options([
+                        'new' => 'New',
+                        'processing' => 'Processing',
+                        'shipped' => 'Shipped',
+                        'delivered' => 'Delivered',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled'
+                    ])
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('created_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true)
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
@@ -241,11 +262,13 @@ class OrderResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string {
+    public static function getNavigationBadge(): ?string
+    {
         return static::getModel()::count();
     }
 
-    public static function getNavigationBadgeColor(): string|array|null {
+    public static function getNavigationBadgeColor(): string|array|null
+    {
         return static::getModel()::count() > 10 ? 'success' : 'danger';
     }
 

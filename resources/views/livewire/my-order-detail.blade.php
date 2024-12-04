@@ -188,6 +188,30 @@
               </tr>
             @endforeach
 
+ {{-- Menampilkan produk kustom dari cookies --}}
+ @foreach ($order->orderCustomItem as $customProduct)
+ <tr>
+     <td class="py-4">
+         <span class="font-semibold">{{ $customProduct->name }}</span>
+     </td>
+     <td class="py-4">
+         {{ Number::currency($customProduct->price, 'IDR') }}
+     </td>
+     <td class="py-4">
+         <span class="text-center w-8">1</span> {{-- Produk kustom biasanya quantity 1 --}}
+     </td>
+     <td class="py-4">
+         {{ Number::currency($customProduct->price, 'IDR') }}
+     </td>
+ </tr>
+ <tr>
+     <td colspan="4" class="py-4">
+         {{-- Menampilkan konten X3D --}}
+         <div>{!! $customProduct->x3d_content !!}</div>
+     </td>
+ </tr>
+ @endforeach
+
             </tbody>
           </table>
         </div>
@@ -230,6 +254,7 @@
         </div>
       </div>
     </div>
+
     <div class="mt-4 flex items-center justify-start gap-4 px-4">
         <a href="/invoice/{{$order->id}}"class="bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-500 btn-sm float-end">
             View Invoice

@@ -22,10 +22,17 @@ class MyOrderDetail extends Component
         $order_items = OrderItem::with('product')->where('order_id', $this->order_id)->get();
         $address = Address::where('order_id', $this->order_id)->first();
         $order = Order::where('id', $this->order_id)->first();
+
+        // Ambil produk kustom dari cookies
+        $customProducts = [];
+        if (isset($_COOKIE['custom_products'])) {
+            $customProducts = json_decode($_COOKIE['custom_products'], true);
+        }
         return view('livewire.my-order-detail', [
             'order_items' => $order_items,
             'address' =>$address,
-            'order' => $order
+            'order' => $order,
+            'custom_products' => $customProducts
         ]);
     }
 }

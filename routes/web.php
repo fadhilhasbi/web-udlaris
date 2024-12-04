@@ -48,9 +48,6 @@ Route::get('/invoice/{order_id}',InvoiceController::class)->name('ViewInvoice');
 Route::get('/invoice/{order_id}/downloadinvoice', [InvoiceDownload::class, 'download'])->name('downloadinvoice');
 
 
-
-
-
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);
 Route::get('/product-custom/rak', CustomRakPage::class);
@@ -60,6 +57,8 @@ Route::get('/product-custom/meja/{slug}', CustomCreateTablePage::class);
 Route::get('/product-custom/rak/{slug}', CustomCreateRakPage::class);
 Route::get('/product-custom/kursi/{slug}', CustomCreateChairPage::class);
 Route::get('/product-custom/lemari/{slug}', CustomCreateCabinetPage::class);
+
+Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 
 Route::middleware([
     'auth:sanctum',
@@ -72,5 +71,4 @@ Route::middleware([
     Route::get('/checkout', CheckoutPage::class);
     Route::get('/checkout/success/{order_id}', SuccessPage::class)->name('success');
     Route::get('/checkout/cancel/{order_id}', CancelPage::class)->name('cancel');
-    Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])->name('midtrans.notification');
 });

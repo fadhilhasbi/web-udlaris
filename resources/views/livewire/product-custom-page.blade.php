@@ -1,53 +1,53 @@
 <div class="mx-auto w-full flex-grow border-y border-gray-200 bg-white px-4 py-10 dark:border-gray-700 dark:bg-slate-800 sm:px-6 lg:px-8">
     <section class="mt-8">
         <!-- Stepper -->
-        <ul class="relative mx-auto flex max-w-xl flex-row gap-x-2">
+        <ul class="relative flex flex-row gap-x-2 max-w-xl mx-auto">
             <!-- Item -->
-            <li class="group flex-1 shrink basis-0">
-                <div class="inline-flex min-h-7 w-full min-w-7 items-center align-middle text-xs">
+            <li class="shrink basis-0 flex-1 group">
+                <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
                     <span
-                        class="flex size-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 font-medium text-white dark:text-white">
+                        class="size-7 flex justify-center items-center flex-shrink-0 bg-blue-600 font-medium text-white rounded-full dark:bg-gray-700 dark:text-white">
                         1
                     </span>
-                    <div class="ms-2 h-px w-full flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
+                    <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Kategori
+                        Select Category
                     </span>
                 </div>
             </li>
             <!-- End Item -->
 
             <!-- Item -->
-            <li class="group flex-1 shrink basis-0">
-                <div class="inline-flex min-h-7 w-full min-w-7 items-center align-middle text-xs">
+            <li class="shrink basis-0 flex-1 group">
+                <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
                     <span
-                        class="flex size-7 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-medium text-gray-800 dark:bg-gray-700 dark:text-white">
+                        class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full dark:bg-gray-700 dark:text-white">
                         2
                     </span>
-                    <div class="ms-2 h-px w-full flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
+                    <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Pilih Tipe Produk
+                        Select Product Type
                     </span>
                 </div>
             </li>
             <!-- End Item -->
 
             <!-- Item -->
-            <li class="group flex-1 shrink basis-0">
-                <div class="inline-flex min-h-7 w-full min-w-7 items-center align-middle text-xs">
+            <li class="shrink basis-0 flex-1 group">
+                <div class="min-w-7 min-h-7 w-full inline-flex items-center text-xs align-middle">
                     <span
-                        class="flex size-7 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-medium text-gray-800 dark:bg-gray-700 dark:text-white">
+                        class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full dark:bg-gray-700 dark:text-white">
                         3
                     </span>
-                    <div class="ms-2 h-px w-full flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
+                    <div class="ms-2 w-full h-px flex-1 bg-gray-200 group-last:hidden dark:bg-gray-700"></div>
                 </div>
                 <div class="mt-3">
                     <span class="block text-sm font-medium text-gray-800 dark:text-white">
-                        Kustomisasi Produk
+                        Product Customization
                     </span>
                 </div>
             </li>
