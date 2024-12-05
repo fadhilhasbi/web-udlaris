@@ -49,7 +49,16 @@
             </div>
             <div class="mt-1 flex items-center gap-x-2">
               <h3 class="text-xl font-medium text-gray-800 dark:text-gray-200">
+               {{-- Pastikan ada order item --}}
+               @if(isset($order_items[0]) && $order_items[0]->created_at)
                {{$order_items[0]->created_at->format('d-m-Y')}}
+           @elseif($order->orderCustomItem->isNotEmpty())
+               {{-- Gunakan orderCustomItem jika order_items kosong --}}
+               {{$order->orderCustomItem->first()->created_at->format('d-m-Y')}}
+           @else
+               {{-- Tampilkan pesan jika tidak ada data --}}
+               Tidak tersedia
+           @endif
               </h3>
             </div>
           </div>
@@ -235,7 +244,18 @@
           <h2 class="text-lg font-semibold mb-4">Summary</h2>
           <div class="flex justify-between mb-2">
             <span>Subtotal</span>
-            <span>{{number::currency($item->order->grand_total ,'IDR')}}</span>
+            <span>
+                @if(isset($order_items) && $order_items->isNotEmpty())
+                {{-- Jika ada produk biasa --}}
+                {{ number_format($order_items->first()->order->grand_total, 0, ',', '.') }}
+            @elseif(isset($order->orderCustomItem) && $order->orderCustomItem->isNotEmpty())
+                {{-- Jika tidak ada produk biasa, gunakan produk kustom --}}
+                {{ number_format($order->orderCustomItem->first()->order->grand_total, 0, ',', '.') }}
+            @else
+                {{-- Jika tidak ada produk sama sekali --}}
+                Tidak ada total
+            @endif
+        </span>
           </div>
           <div class="flex justify-between mb-2">
             <span>Taxes</span>
@@ -248,16 +268,42 @@
           <hr class="my-2">
           <div class="flex justify-between mb-2">
             <span class="font-semibold">Grand Total</span>
-            <span class="font-semibold">{{number::currency($item->order->grand_total ,'IDR')}}</span>
+            <span class="font-semibold">
+                @php
+                    $grandTotal = 0;
 
+                    // Cek apakah ada produk biasa
+                    if(isset($order_items) && $order_items->isNotEmpty()) {
+                        $grandTotal = $order_items->first()->order->grand_total;
+                    }
+                    // Jika tidak ada produk biasa, cek produk kustom
+                    elseif(isset($order->orderCustomItem) && $order->orderCustomItem->isNotEmpty()) {
+                        $grandTotal = $order->orderCustomItem->first()->order->grand_total;
+                    }
+                @endphp
+
+                {{-- Menampilkan grand_total jika ditemukan --}}
+                @if($grandTotal)
+                    {{ number::currency($grandTotal, 'IDR') }}
+                @else
+                    Tidak ada total
+                @endif
+
+            </span>
           </div>
         </div>
       </div>
     </div>
+<<<<<<< HEAD
 
     <div class="mt-4 flex items-center justify-start gap-4 px-4">
         <a href="/invoice/{{$order->id}}"class="bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-500 btn-sm float-end">
             View Invoice
         </a>
+=======
+    <div class="mt-6 flex items-center justify-end gap-4 px-4">
+        <a href="{{ route('downloadinvoice', ['order_id' => $order->id]) }}" target="_blank" class="bg-slate-600 text-white py-2 px-6 rounded-md hover:bg-slate-500 btn-sm float-end">
+            Download Invoice</a>
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
     </div>
   </div>

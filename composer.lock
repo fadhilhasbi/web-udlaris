@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "1f0d1a1ce0e7acd1ae15852b31e3ef2c",
+=======
+    "content-hash": "06f75b7de36efb35563492ed505fe26e",
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -153,6 +157,7 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
                 "branch-alias": {
                     "dev-master": "3.0-dev"
                 },
@@ -164,6 +169,19 @@
                         "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf",
                         "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"
                     }
+=======
+                "laravel": {
+                    "aliases": {
+                        "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf",
+                        "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf"
+                    },
+                    "providers": [
+                        "Barryvdh\\DomPDF\\ServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                 }
             },
             "autoload": {
@@ -5739,6 +5757,7 @@
         },
         {
             "name": "sabberworm/php-css-parser",
+<<<<<<< HEAD
             "version": "v8.6.0",
             "source": {
                 "type": "git",
@@ -5749,14 +5768,33 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/MyIntervals/PHP-CSS-Parser/zipball/d2fb94a9641be84d79c7548c6d39bbebba6e9a70",
                 "reference": "d2fb94a9641be84d79c7548c6d39bbebba6e9a70",
+=======
+            "version": "v8.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MyIntervals/PHP-CSS-Parser.git",
+                "reference": "f414ff953002a9b18e3a116f5e462c56f21237cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MyIntervals/PHP-CSS-Parser/zipball/f414ff953002a9b18e3a116f5e462c56f21237cf",
+                "reference": "f414ff953002a9b18e3a116f5e462c56f21237cf",
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                 "shasum": ""
             },
             "require": {
                 "ext-iconv": "*",
+<<<<<<< HEAD
                 "php": ">=5.6.20"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.7.27"
+=======
+                "php": "^5.6.20 || ^7.0.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.7.27 || 6.5.14 || 7.5.20 || 8.5.40"
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             },
             "suggest": {
                 "ext-mbstring": "for parsing UTF-8 CSS"
@@ -5798,9 +5836,15 @@
             ],
             "support": {
                 "issues": "https://github.com/MyIntervals/PHP-CSS-Parser/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.6.0"
             },
             "time": "2024-07-01T07:33:21+00:00"
+=======
+                "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.7.0"
+            },
+            "time": "2024-10-27T17:38:32+00:00"
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         },
         {
             "name": "spatie/color",

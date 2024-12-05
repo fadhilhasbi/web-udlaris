@@ -13,7 +13,11 @@ class EditProduct extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+<<<<<<< HEAD
             // Actions\DeleteAction::make(),
+=======
+            //Actions\DeleteAction::make(),
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         ];
     }
 }

@@ -56,6 +56,10 @@
                                     Out of Stock
                                 @endif
                             </p>
+<<<<<<< HEAD
+=======
+
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                         </div>
 
                         <!-- Quantity Selector -->
@@ -71,8 +75,13 @@
                                     class="text-md flex w-full items-center border-none bg-gray-300 text-center font-semibold text-gray-700 placeholder-gray-700 outline-none hover:text-black focus:outline-none dark:bg-gray-900 dark:text-gray-400 dark:placeholder-gray-400"
                                     placeholder="1" min="1" max="{{ $product->quantity }}">
                                 <button wire:click="increaseQty"
+<<<<<<< HEAD
                                     class="h-full w-20 cursor-pointer rounded-r bg-gray-300 text-gray-600 outline-none hover:bg-gray-400 hover:text-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700"
                                     {{ $quantity >= $product->quantity ? 'disabled' : '' }}>
+=======
+                                    class="h-full w-20 cursor-pointer rounded-r bg-gray-300 text-gray-600 outline-none hover:bg-gray-400 hover:text-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700">
+                                    {{ $quantity >= $product->quantity ? '' : '' }}
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                     <span class="m-auto text-2xl font-thin">+</span>
                                 </button>
                             </div>

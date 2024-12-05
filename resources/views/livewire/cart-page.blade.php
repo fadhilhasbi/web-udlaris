@@ -135,7 +135,7 @@
                             {{ Number::currency($grand_total, 'IDR') }}
                         </span>
                     </div>
-                    @if ($cart_items)
+                    @if(!empty($cart_items) || !empty($custom_products))
                         <a href="checkout"
                             class="mt-4 block w-full rounded-lg bg-blue-500 px-4 py-2 text-center text-white hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800">Checkout</a>
                     @endif

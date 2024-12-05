@@ -11,6 +11,7 @@ use Livewire\Component;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Redirect;
+use App\Models\Product;
 
 #[Title('Checkout Keranjang - UD Laris')]
 class CheckoutPage extends Component
@@ -46,33 +47,47 @@ class CheckoutPage extends Component
         ]);
 
         $cart_items = CartManagement::getCartItemsFromCookie();
-        $line_items = [];
-
-        // Add regular products to line items
-        foreach ($cart_items as $item) {
-            $line_items[] = [
-                'id' => $item['product_id'],
-                'price' => $item['unit_amount'],
-                'quantity' => $item['quantity'],
-                'name' => $item['name'],
-            ];
-        }
-
-        // Retrieve custom products from cookie
         $custom_products = json_decode($_COOKIE['custom_products'] ?? '[]', true);
 
-        // Add custom products to line items
-        foreach ($custom_products as $customProduct) {
-            $line_items[] = [
-                'id' => $customProduct['id'], // Assuming you have an ID for custom products
-                'name' => $customProduct['name'], // Ensure you have the price in the custom product
-                'quantity' => 1, // Assuming quantity is 1 for custom products
-                'price' => $customProduct['price'],
-            ];
+        // Jika hanya ada produk custom, gunakan produk custom sebagai `$line_items`
+        if (empty($cart_items) && !empty($custom_products)) {
+            $line_items = [];
+            foreach ($custom_products as $customProduct) {
+                $line_items[] = [
+                    'id' => $customProduct['id'],
+                    'name' => $customProduct['name'],
+                    'quantity' => 1, // Default untuk produk custom
+                    'price' => $customProduct['price'],
+                ];
+            }
+
+            // Set total pesanan dari produk custom saja
+            $grand_total = array_sum(array_column($custom_products, 'price'));
+        } else {
+            // Jika produk reguler ada, gabungkan dengan produk custom
+            foreach ($cart_items as $item) {
+                $line_items[] = [
+                    'id' => $item['product_id'],
+                    'price' => $item['unit_amount'],
+                    'quantity' => $item['quantity'],
+                    'name' => $item['name'],
+                ];
+            }
+
+            foreach ($custom_products as $customProduct) {
+                $line_items[] = [
+                    'id' => $customProduct['id'],
+                    'name' => $customProduct['name'],
+                    'quantity' => 1,
+                    'price' => $customProduct['price'],
+                ];
+            }
+
+            $grand_total = CartManagement::calculateGrandTotal($cart_items) + array_sum(array_column($custom_products, 'price'));
         }
         $order = new Order();
         $order->user_id = auth()->user()->id;
-        $order->grand_total = CartManagement::calculateGrandTotal($cart_items) + $customProduct['price'];
+        $order->grand_total = $grand_total;
         $order->payment_method = $this->payment_method;
         $order->payment_status = 'pending';
         $order->status = 'new';
@@ -93,6 +108,15 @@ class CheckoutPage extends Component
         $address->order_id = $order->id;
         $address->save();
 
+        // Update product stock
+        foreach ($cart_items as $item) {
+            $product = Product::find($item['product_id']);
+            if ($product) {
+                $product->quantity -= $item['quantity'];
+                $product->in_stock = $product->quantity > 0; // Update in_stock status
+                $product->save();
+            }
+        }
         // new for customProduct
         if (!empty($custom_products)) {
             foreach ($custom_products as $customProduct) {
@@ -182,13 +206,11 @@ class CheckoutPage extends Component
     public function render()
     {
         $cart_items = CartManagement::getCartItemsFromCookie();
+
         // Ambil data produk custom dari cookie
         $custom_products = json_decode($_COOKIE['custom_products'] ?? '[]', true);
 
-        // Gabungkan produk custom ke dalam $cart_items
-        foreach ($custom_products as $customProduct) {
-            $customProduct = ['x3dContent'];
-        }
+
         $grand_total = CartManagement::calculateGrandTotal($cart_items);
         return view('livewire.checkout-page', [
             'cart_items' => $cart_items,

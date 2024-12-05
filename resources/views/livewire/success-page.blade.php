@@ -108,7 +108,13 @@
                     class="w-full rounded-md bg-blue-500 px-4 py-2 text-center text-gray-50 hover:bg-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:w-auto">
                     View My Orders
                 </a>
+<<<<<<< HEAD
                 <a href="/invoice/{{$order->id}}" class="bg-slate-600 text-white py-2 px-4 rounded-md hover:bg-slate-500 btn-sm float-end">View Invoice</a>
+=======
+                <a href="{{ route('downloadinvoice', ['order_id' => $order->id]) }}" target="_blank" class="bg-slate-600 text-white py-2 px-6 rounded-md hover:bg-slate-500 btn-sm float-end">
+                    Download Invoice
+                </a>
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             </div>
         </div>
     </div>

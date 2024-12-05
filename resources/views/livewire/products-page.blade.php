@@ -85,6 +85,10 @@
                                                     Produk tidak tersedia
                                                 </div>
                                             @endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                         </div>
 
                                         <div class="p-3">
@@ -95,7 +99,10 @@
                                                 <span class="text-green-600 dark:text-green-600">{{ Number::currency($product->price, 'IDR') }}</span>
                                             </p>
                                         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                         {{-- Disable the Add to Cart button if stock is <= 0 --}}
                                         <div class="flex justify-center border-t border-gray-300 p-4 dark:border-gray-700">
                                             @if ($product->in_stock > 0)
@@ -111,6 +118,10 @@
                                             @else
                                                 <span class="text-red-500 font-bold">Out of Stock</span>
                                             @endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                         </div>
                                     </div>
                                 </div>

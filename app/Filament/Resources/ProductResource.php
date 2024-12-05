@@ -90,10 +90,17 @@ class ProductResource extends Resource
                                 TextInput::make('sku')
                                     ->label('Kode Barang (SKU)')
                                     ->required()
+<<<<<<< HEAD
                                     ->disabled(function (string $operation) {
                                         return $operation === 'edit'; // Disable only on edit
                                     }),
 
+=======
+                                    ->unique(ignoreRecord: true)
+                                    ->disabled(function (string $operation) {
+                                        return $operation === 'edit'; // Disable only on edit
+                                    }),
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                 TextInput::make('quantity')
                                     ->label('Jumlah Tersedia')
                                     ->required()
@@ -106,7 +113,10 @@ class ProductResource extends Resource
                                             $set('in_stock', true);
                                         }
                                     }),
+<<<<<<< HEAD
 
+=======
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                             ])->columns(3),
                     ]),
 
@@ -177,7 +187,11 @@ class ProductResource extends Resource
                 EditAction::make(),
                 ActionGroup::make([
                     ViewAction::make(),
+<<<<<<< HEAD
                     // DeleteAction::make(),
+=======
+                   // DeleteAction::make(),
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                 ])
             ])
             ->bulkActions([

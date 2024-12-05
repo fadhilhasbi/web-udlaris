@@ -36,9 +36,15 @@ class ProductDetailPage extends Component
         }
     }
     public function getProduct()
+<<<<<<< HEAD
 {
     return Product::where('slug', $this->slug)->firstOrFail();
 }
+=======
+    {
+        return Product::where('slug', $this->slug)->firstOrFail();
+    }
+>>>>>>> da9954f (feat(transaction): add stock check and invoice order)
 
     // add product to cart
     public function addToCart($product_id)
