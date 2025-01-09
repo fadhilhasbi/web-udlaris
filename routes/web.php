@@ -4,7 +4,6 @@ use App\Livewire\CartPage;
 use App\Livewire\FaqPage;
 use App\Livewire\HomePage;
 use App\Livewire\CancelPage;
-use App\Livewire\InvoiceController;
 use App\Livewire\MyOrderDetail;
 use App\Livewire\MyOrderPage;
 use App\Livewire\SuccessPage;
@@ -23,13 +22,9 @@ use App\Livewire\CustomCreateChairPage;
 use App\Livewire\CustomCreateTablePage;
 use App\Livewire\CustomCreateCabinetPage;
 use App\Http\Controllers\MidtransController;
-<<<<<<< HEAD
-use App\Http\Controllers\InvoiceDownload;
-=======
 use App\Livewire\InvoiceController;
 use App\Http\Controllers\Invoicedownload;
 
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
 
 /*
 |-------------------------------------------------------->>>>>>> develop------------------
@@ -51,12 +46,9 @@ Route::get('/faq', FaqPage::class);
 Route::get('/my-order',MyOrderPage::class)->name('orders');
 Route::get('/my-order/{order_id}', MyOrderDetail::class)->name('my-orders.show');
 Route::get('/invoice/{order_id}',InvoiceController::class)->name('ViewInvoice');
-<<<<<<< HEAD
-Route::get('/invoice/{order_id}/downloadinvoice', [InvoiceDownload::class, 'download'])->name('downloadinvoice');
 
-=======
 Route::get('/invoice/{order_id}/downloadinvoice', [Invoicedownload::class, 'download'])->name('downloadinvoice');
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
+
 
 Route::get('/product-custom', ProductCustomPage::class);
 Route::get('/product-custom/meja', CustomTablePage::class);

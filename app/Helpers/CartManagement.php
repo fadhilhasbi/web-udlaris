@@ -11,23 +11,28 @@ class CartManagement
     static public function addItemToCart($product_id)
     {
         $cart_items = self::getCartItemsFromCookie();
+    $existing_item = null;
 
-        $existing_item = null;
-
-        foreach ($cart_items as $key => $item) {
-            if ($item['product_id'] == $product_id) {
-                $existing_item = $key;
-                break;
-            }
+    foreach ($cart_items as $key => $item) {
+        if ($item['product_id'] == $product_id) {
+            $existing_item = $key;
+            break;
         }
+    }
 
+    $product = Product::find($product_id);
+    if ($product) {
         if ($existing_item !== null) {
-            $cart_items[$existing_item]['quantity']++;
-            $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] *
-                $cart_items[$existing_item]['unit_amount'];
+            // Validasi stok sebelum menambah quantity
+            if ($cart_items[$existing_item]['quantity'] < $product->quantity) {
+                $cart_items[$existing_item]['quantity']++;
+                $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
+            } else {
+                session()->flash('error', 'Stok tidak mencukupi untuk ' . $product->name);
+            }
         } else {
-            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'image']);
-            if ($product) {
+            // Tambah produk jika belum ada di keranjang
+            if ($product->quantity > 0) {
                 $cart_items[] = [
                     'product_id' => $product->id,
                     'name' => $product->name,
@@ -36,8 +41,11 @@ class CartManagement
                     'unit_amount' => $product->price,
                     'total_amount' => $product->price
                 ];
+            } else {
+                session()->flash('error', 'Produk ' . $product->name . ' tidak tersedia.');
             }
         }
+    }
         self::addCartItemsToCookie($cart_items);
         return count($cart_items);
     }
@@ -195,13 +203,20 @@ class CartManagement
     {
         $cart_items = self::getCartItemsFromCookie();
 
-        foreach ($cart_items as $key => $item) {
-            if ($item['product_id'] == $product_id) {
+    foreach ($cart_items as $key => $item) {
+        if ($item['product_id'] == $product_id) {
+            // Ambil stok produk dari database
+            $product = Product::find($product_id);
+            if ($product && $item['quantity'] < $product->quantity) {
+                // Tambah quantity jika stok mencukupi
                 $cart_items[$key]['quantity']++;
-                $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]
-                ['unit_amount'];
+                $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]['unit_amount'];
+            } else {
+                // Jika stok tidak cukup, tampilkan pesan error (opsional)
+                session()->flash('error', 'Stok tidak mencukupi untuk ' . $item['name']);
             }
         }
+    }
         self::addCartItemsToCookie($cart_items);
         return $cart_items;
     }

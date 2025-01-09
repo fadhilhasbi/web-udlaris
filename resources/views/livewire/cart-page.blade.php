@@ -135,7 +135,7 @@
                             {{ Number::currency($grand_total, 'IDR') }}
                         </span>
                     </div>
-                    @if(!empty($cart_items) || !empty($custom_products))
+                    @if (!empty($cart_items) || !empty($custom_products))
                         <a href="checkout"
                             class="mt-4 block w-full rounded-lg bg-blue-500 px-4 py-2 text-center text-white hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800">Checkout</a>
                     @endif
@@ -210,15 +210,14 @@
                                                 <!-- End Debugging -->
                                             </div>
                                             <p class="mt-2 font-semibold text-gray-700 dark:text-gray-300">
-                                               {{ $customProduct['name'] }}
-                                            <!-- Add Clickable Area for the X3D content -->
-                                            <button onclick="openModal('{{ $customProduct['x3dContent'] }}')"
-                                                class="text-blue-500 hover:text-blue-700">View Custom Model</button>
+                                                {{ $customProduct['name'] }}
+                                                <!-- Add Clickable Area for the X3D content -->
+                                                <button onclick="openModal('{{ $customProduct['x3dContent'] }}')"
+                                                    class="text-blue-500 hover:text-blue-700">View Custom Model</button>
                 </div>
 
                 <!-- Modal to Display the X3D Content -->
-                <div id="x3dModal"
-                style="display: none"
+                <div id="x3dModal" style="display: none"
                     class="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center">
                     <div class="bg-white dark:bg-slate-800 rounded-lg p-4 max-w-4xl w-full">
                         <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Click Custom Model and then
@@ -298,7 +297,7 @@
             @if (!empty($customProducts))
                 <div class="w-full mb-4 overflow-x-auto rounded-lg bg-white p-4 shadow-md dark:bg-slate-900">
 
-                    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Total Price</h2>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Total Price custom</h2>
 
                     <p class="mt-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
                         Rp{{ number_format($totalHarga, 0, ',', '.') }}</p>
@@ -309,7 +308,11 @@
         </div>
 
     </div>
-
+    @if (session()->has('Mencapai batas stock'))
+        <div class="alert alert-danger">
+            {{ session('Mencapai batas stock') }}
+        </div>
+    @endif
 </div>
 
 <script>

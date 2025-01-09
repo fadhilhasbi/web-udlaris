@@ -32,6 +32,8 @@ use Filament\Forms\Components\ToggleButtons;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use Illuminate\Support\Facades\Notification;
+
 
 class OrderResource extends Resource
 {
@@ -69,6 +71,30 @@ class OrderResource extends Resource
                             ])
                             ->default('pending')
                             ->required(),
+                        // Select::make('order_type')
+                        //     ->label('Order Type')
+                        //     ->options([
+                        //         'regular' => 'Regular',
+                        //         'pre-order' => 'Pre-order',
+                        //     ])
+                        //     ->default('regular')
+                        //     ->required(),
+                        Select::make('working_time')
+                            ->label('Working Time')
+                            ->options(function () {
+                                $options = [];
+                                foreach (range(1, 30) as $number) { // Angka dari 1 hingga 30
+                                    $options["{$number} Hari"] = "{$number} Hari";
+                                    $options["{$number} Minggu"] = "{$number} Minggu";
+                                    $options["{$number} Bulan"] = "{$number} Bulan";
+                                }
+                                return $options;
+                            })
+                            ->searchable()
+                            ->default('7 days') // Default nilai 7 Hari
+                            ->required()
+                            ->helperText('Pilih estimasi waktu pengerjaan (Hari, Minggu, atau Bulan).'),
+
                         ToggleButtons::make('status')
                             ->inline()
                             ->options([
@@ -236,7 +262,10 @@ class OrderResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
+                TextColumn::make('working_time')
+                    ->label('Working Time')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -253,6 +282,18 @@ class OrderResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+    public static function filters(): array
+    {
+        return [
+            Tables\Filters\SelectFilter::make('order_type')
+                ->label('Order Type')
+                ->options([
+                    'regular' => 'Regular',
+                    'pre-order' => 'Pre-order',
+                ])
+                ->placeholder('All'),
+        ];
     }
 
     public static function getRelations(): array

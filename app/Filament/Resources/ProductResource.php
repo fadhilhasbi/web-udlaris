@@ -90,33 +90,22 @@ class ProductResource extends Resource
                                 TextInput::make('sku')
                                     ->label('Kode Barang (SKU)')
                                     ->required()
-<<<<<<< HEAD
-                                    ->disabled(function (string $operation) {
-                                        return $operation === 'edit'; // Disable only on edit
-                                    }),
-
-=======
                                     ->unique(ignoreRecord: true)
                                     ->disabled(function (string $operation) {
                                         return $operation === 'edit'; // Disable only on edit
                                     }),
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                 TextInput::make('quantity')
                                     ->label('Jumlah Tersedia')
                                     ->required()
                                     ->minValue(0)
                                     ->afterStateUpdated(function ($state, Set $set) {
                                         // Automatically toggle 'in_stock' off if stock <= 0
-                                        if ($state <= 0) {
+                                        if ($state < 0) {
                                             $set('in_stock', false);
-                                        } else if ($state > 0) {
+                                        } else {
                                             $set('in_stock', true);
                                         }
                                     }),
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                             ])->columns(3),
                     ]),
 
@@ -130,6 +119,9 @@ class ProductResource extends Resource
                                 Toggle::make('in_stock')
                                     ->default(true),
                                 Toggle::make('on_sale'),
+                                // Toggle::make('on_pre_order')  // Toggle untuk Pre-Order
+                                // ->label('On Pre-Order')   // Label yang lebih jelas untuk toggle
+                                // ->default(false),         // Default off untuk produk yang tidak di-pre-order
                                 DatePicker::make('published_at')
                                     ->columnSpan('full')
                                     ->default(now())
@@ -169,6 +161,8 @@ class ProductResource extends Resource
                     ->money('IDR')
                     ->searchable()
                     ->sortable(),
+                // IconColumn::make('on_pre_order')
+                //     ->boolean(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 IconColumn::make('is_featured')
@@ -187,11 +181,9 @@ class ProductResource extends Resource
                 EditAction::make(),
                 ActionGroup::make([
                     ViewAction::make(),
-<<<<<<< HEAD
+
                     // DeleteAction::make(),
-=======
-                   // DeleteAction::make(),
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
+
                 ])
             ])
             ->bulkActions([

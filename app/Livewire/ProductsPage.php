@@ -32,7 +32,23 @@ class ProductsPage extends Component
 
     #[Url]
     public $sort = 'latest';
+//     public function preOrder($product_id)
+// {
+//     // Logic for handling the pre-order process
+//     // For example, you can add the product to the cart in a pre-order state or create a pending order
+//     $total_count = CartManagement::addItemToCart($product_id, 'Pre-order');  // If you need to distinguish between normal and pre-order
 
+//     // Optionally, send a success alert
+//     $this->alert('success', 'Produk berhasil diproses untuk Pre-order!', [
+//         'position' => 'bottom-end',
+//         'timer' => 3000,
+//         'toast' => true,
+//         'timerProgressBar' => false,
+//     ]);
+
+//     // Optionally, you can dispatch an event to update the cart count in a navbar or anywhere else
+//     $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
+// }
     // add product to cart
     public function addToCart ($product_id) {
         $total_count = CartManagement::addItemToCart($product_id);
@@ -50,8 +66,8 @@ class ProductsPage extends Component
     public function render()
     {
         $productQuery = Product::query()
-        ->where('is_active', 1)
-        ->where('in_stock', '>=', 1);
+        ->where('is_active', 1);
+
 
         if (!empty($this->selected_categories)) {
             $productQuery->whereHas('categories', function ($query) {

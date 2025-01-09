@@ -1,4 +1,5 @@
-<div class="mx-auto w-full flex-grow border-y border-gray-200 bg-white px-4 py-10 dark:border-gray-700 dark:bg-slate-800 sm:px-6 lg:px-8">
+<div
+    class="mx-auto w-full flex-grow border-y border-gray-200 bg-white px-4 py-10 dark:border-gray-700 dark:bg-slate-800 sm:px-6 lg:px-8">
     <section class="font-poppins overflow-hidden py-11">
         <div class="mx-auto max-w-6xl px-4 py-4 md:px-6 lg:py-8">
             <div class="-mx-4 flex flex-wrap">
@@ -27,7 +28,7 @@
                                         </path>
                                     </svg>
                                 </span>
-                                <h2 class="text-lg font-bold text-gray-700 dark:text-gray-400">Free Shipping</h2>
+                                <h2 class="text-lg font-bold text-gray-700 dark:text-gray-400"></h2>
                             </div>
                         </div>
                     </div>
@@ -49,17 +50,14 @@
                             </p>
 
                             <!-- Stock Availability -->
-                            <p class="mt-4 text-lg font-semibold {{ $product->quantity <= 0 ? 'text-red-500' : 'text-green-500' }}">
+                            <p
+                                class="mt-4 text-lg font-semibold {{ $product->quantity <= 0 ? 'text-red-500' : 'text-green-500' }}">
                                 @if ($product->quantity > 0)
                                     In Stock: {{ $product->quantity }} items
                                 @else
-                                    Out of Stock
+                                    <span class="text-red-500">Out of Stock</span>
                                 @endif
                             </p>
-<<<<<<< HEAD
-=======
-
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                         </div>
 
                         <!-- Quantity Selector -->
@@ -75,30 +73,36 @@
                                     class="text-md flex w-full items-center border-none bg-gray-300 text-center font-semibold text-gray-700 placeholder-gray-700 outline-none hover:text-black focus:outline-none dark:bg-gray-900 dark:text-gray-400 dark:placeholder-gray-400"
                                     placeholder="1" min="1" max="{{ $product->quantity }}">
                                 <button wire:click="increaseQty"
-<<<<<<< HEAD
-                                    class="h-full w-20 cursor-pointer rounded-r bg-gray-300 text-gray-600 outline-none hover:bg-gray-400 hover:text-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700"
-                                    {{ $quantity >= $product->quantity ? 'disabled' : '' }}>
-=======
                                     class="h-full w-20 cursor-pointer rounded-r bg-gray-300 text-gray-600 outline-none hover:bg-gray-400 hover:text-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700">
                                     {{ $quantity >= $product->quantity ? '' : '' }}
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                                     <span class="m-auto text-2xl font-thin">+</span>
                                 </button>
                             </div>
                         </div>
-
-
                         <!-- Add to Cart Button -->
-                        <div class="flex flex-wrap items-center gap-4">
-                            <button wire:click="addToCart({{ $product->id }})"
-                                class="w-full rounded-md bg-blue-500 p-4 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-blue-700 lg:w-2/5">
-                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">Add to cart</span>
-                                <span wire:loading wire:target="addToCart({{ $product->id }})">Adding...</span>
-                            </button>
-                        </div>
+                        @if ($product->in_stock > 0)
+                            <div class="flex flex-wrap items-center gap-4">
+                                <button wire:click="addToCart({{ $product->id }})"
+                                    class="w-full rounded-md bg-blue-500 p-4 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-blue-700 lg:w-2/5"
+                                    {{ $product->quantity <= 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-500 dark:text-gray-200 dark:hover:bg-blue-700' }}"
+                                    {{ $product->quantity <= 0 ? 'disabled' : '' }}>
+                                    <span wire:loading.remove wire:target="addToCart({{ $product->id }})">Add to
+                                        cart</span>
+                                    <span wire:loading wire:target="addToCart({{ $product->id }})">Adding...</span>
+                                </button>
+                            {{-- @elseif($product->on_pre_order)
+                                <a wire:click.prevent="preOrder({{ $product->id }})" href="#"
+                                    class="ml-4 flex items-center space-x-2 text-green-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-300">
+                                    <span>Click here to Pre-Order</span>
+                                </a>
+                            @else
+                                <button class="text-red-500 font-bold btn btn-secondary" disabled>Not for Pre-Order
+                                </button> --}}
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+</div>
+</section>
 </div>

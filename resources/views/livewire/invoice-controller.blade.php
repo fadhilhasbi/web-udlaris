@@ -1,29 +1,11 @@
 <div>
     <style>
-<<<<<<< HEAD
-        html,
-        body {
-=======
         html, body {
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             margin: 10px;
             padding: 10px;
             font-family: sans-serif;
         }
-
-<<<<<<< HEAD
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        span,
-        label {
-=======
         h1, h2, h3, h4, h5, h6, p, span, label {
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             font-family: sans-serif;
         }
 
@@ -40,13 +22,7 @@
             font-family: sans-serif;
         }
 
-<<<<<<< HEAD
-        table,
-        th,
-        td {
-=======
         table, th, td {
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             border: 1px solid #ddd;
             padding: 8px;
             font-size: 14px;
@@ -107,11 +83,12 @@
             color: #fff;
         }
     </style>
-
-<<<<<<< HEAD
-=======
+<!-- Signature Section -->
+<div class="signature-section">
+    <p><strong>Hash:</strong></p>
+    <p>{{ $signature }}</p>
+</div>
     <!-- Order Details Table -->
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
     <table class="order-details">
         <thead>
             <tr>
@@ -134,41 +111,24 @@
             <tr>
                 <td>Order Id:</td>
                 <td>{{ $order->id }}</td>
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                 <td>Full Name:</td>
                 <td>{{ $address->full_name }}</td>
             </tr>
             <tr>
-                <td>Tracking Id/No.:</td>
-<<<<<<< HEAD
-                <td>0</td>
-
-=======
-                <td>-</td>
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
+                <td>Working Time:</td>
+                <td>{{ $order->working_time }}</td>
                 <td>Email Id:</td>
                 <td>{{ auth()->user()->email }}</td>
             </tr>
             <tr>
                 <td>Ordered Date:</td>
                 <td>{{ $order->created_at->format('d-m-Y h:i A') }}</td>
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                 <td>Phone:</td>
                 <td>{{ $address->phone }}</td>
             </tr>
             <tr>
                 <td>Payment Mode:</td>
                 <td>{{ $order->payment_method }}</td>
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
                 <td>Address:</td>
                 <td>{{ $address->street_address }}, {{ $address->city }}, {{ $address->state }},
                     {{ $address->zip_code }}</td>
@@ -176,32 +136,17 @@
             <tr>
                 <td>Order Status:</td>
                 <td>{{ $order->status }}</td>
-<<<<<<< HEAD
-
-                <td>Pin code:</td>
-                <td>0</td>
-=======
                 <td>Pin code:</td>
                 <td>-</td>
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             </tr>
         </tbody>
     </table>
 
-<<<<<<< HEAD
-    <table>
-        <thead>
-            <tr>
-                <th class="no-border text-start heading" colspan="5">
-                    Order Items
-                </th>
-=======
     <!-- Tabel Produk Reguler -->
     <table>
         <thead>
             <tr>
                 <th class="no-border text-start heading" colspan="5">Regular Order Items</th>
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             </tr>
             <tr class="bg-blue">
                 <th>ID</th>
@@ -216,31 +161,6 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->product->name }}</td>
-<<<<<<< HEAD
-                    <td>{{ Number::currency($item->unit_amount,'IDR') }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td class="fw-bold">{{ Number::currency($item->total_amount,'IDR') }}</td>
-                </tr>
-            @endforeach
-            <tr>
-                <td colspan="4" class="total-heading">Total Amount - <small>Inc. all vat/tax</small> :</td>
-                <td colspan="1" class="total-heading">{{ Number::currency($item->order->grand_total,'IDR') }}</td>
-            </tr>
-        </tbody>
-    </table>
-    @if (!request()->routeIs('downloadinvoice'))
-    <div class="pt-5">
-        <a href="{{ route('downloadinvoice', ['order_id' => $order->id]) }}" target="_blank" class="bg-slate-600 text-white py-2 px-6 rounded-md hover:bg-slate-500 btn-sm float-end">
-            Download Invoice
-        </a>
-    </div>
-@endif
-        <br>
-    <p class="text-center">
-        Thank you for shopping with UD Laris Yogyakarta
-    </p>
-
-=======
                     <td>{{ Number::currency($item->unit_amount, 'IDR') }}</td>
                     <td>{{ $item->quantity }}</td>
                     <td class="fw-bold">{{ Number::currency($item->total_amount, 'IDR') }}</td>
@@ -294,5 +214,4 @@
 
     <br>
     <p class="text-center">Thank you for shopping with UD Laris Yogyakarta</p>
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
 </div>

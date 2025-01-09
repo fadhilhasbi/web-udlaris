@@ -7,10 +7,6 @@ use App\Livewire\Partials\Navbar;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Models\Product;
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
 #[Title('Keranjang Pesanan - UD Laris')]
 class CartPage extends Component
 {
@@ -76,18 +72,21 @@ class CartPage extends Component
     {
         return array_sum(array_column($this->custom_products, 'price'));
     }
-    public function checkout()
-    {
-        foreach ($this->cart_items as $item) {
-            $product = Product::find($item['id']); // Fetch the product
+    // public function addToPreOrderCart($product_id)
+    // {
+    //     $product = Product::find($product_id);
 
-<<<<<<< HEAD
-=======
+    //     if ($product && $product->on_pre_order) {
+    //         session()->push('preorder_cart', $product); // Menambahkan produk pre-order ke keranjang
+    //         session()->flash('message', 'Produk berhasil ditambahkan ke keranjang pre-order!');
+    //     } else {
+    //         session()->flash('error', 'Produk ini tidak tersedia untuk pre-order!');
+    //     }
+    // }
     public function checkout()
     {
         foreach ($this->cart_items as $item) {
             $product = Product::find($item['id']); // Fetch the product
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
             if ($product) {
                 // Check if there is enough stock
                 if ($product->quantity >= $item['quantity']) {
@@ -102,10 +101,6 @@ class CartPage extends Component
             }
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         session()->flash('success', 'Checkout successful!');
         $this->mount(); // Refresh cart items
     }

@@ -1,11 +1,5 @@
 <?php
-<<<<<<< HEAD
-
 return [
-
-=======
-return [
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
     /*
     |--------------------------------------------------------------------------
     | Settings
@@ -16,21 +10,11 @@ return [
     |
     */
     'show_warnings' => false,   // Throw an Exception on warnings from dompdf
-<<<<<<< HEAD
-
     'public_path' => null,  // Override the public path if needed
-
-=======
-    'public_path' => null,  // Override the public path if needed
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
     /*
      * Dejavu Sans font is missing glyphs for converted entities, turn it off if you need to show € and £.
      */
     'convert_entities' => true,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
     'options' => [
         /**
          * The location of the DOMPDF font directory
@@ -57,10 +41,6 @@ return [
          * Symbol, ZapfDingbats.
          */
         'font_dir' => storage_path('fonts'), // advised by dompdf (https://github.com/dompdf/dompdf/pull/782)
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * The location of the DOMPDF font cache directory
          *
@@ -70,10 +50,6 @@ return [
          * Note: This directory must exist and be writable by the webserver process.
          */
         'font_cache' => storage_path('fonts'),
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * The location of a temporary directory.
          *
@@ -82,10 +58,6 @@ return [
          * using the PDFLib back end.
          */
         'temp_dir' => sys_get_temp_dir(),
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * ==== IMPORTANT ====
          *
@@ -99,10 +71,6 @@ return [
          * $dompdf = new DOMPDF();  $dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
         'chroot' => realpath(base_path()),
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Protocol whitelist
          *
@@ -118,34 +86,18 @@ return [
             'http://' => ['rules' => []],
             'https://' => ['rules' => []],
         ],
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Operational artifact (log files, temporary files) path validation
          */
         'artifactPathValidation' => null,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * @var string
          */
         'log_output_file' => null,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Whether to enable font subsetting or not.
          */
         'enable_font_subsetting' => false,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * The PDF rendering backend to use
          *
@@ -175,10 +127,6 @@ return [
          * @link http://www.php.net/image
          */
         'pdf_backend' => 'CPDF',
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * html target media view which should be rendered into pdf.
          * List of types and parsing rules for future extensions:
@@ -190,10 +138,6 @@ return [
          * Therefore allow specification of content here.
          */
         'default_media_type' => 'screen',
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * The default paper size.
          *
@@ -202,10 +146,6 @@ return [
          * @see CPDF_Adapter::PAPER_SIZES for valid sizes ('letter', 'legal', 'A4', etc.)
          */
         'default_paper_size' => 'a4',
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * The default paper orientation.
          *
@@ -214,10 +154,6 @@ return [
          * @var string
          */
         'default_paper_orientation' => 'portrait',
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * The default font family
          *
@@ -226,10 +162,6 @@ return [
          * @var string
          */
         'default_font' => 'serif',
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Image DPI setting
          *
@@ -264,10 +196,6 @@ return [
          * @var int
          */
         'dpi' => 96,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Enable embedded PHP
          *
@@ -286,10 +214,6 @@ return [
          * @var bool
          */
         'enable_php' => false,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Rnable inline JavaScript
          *
@@ -301,10 +225,6 @@ return [
          * @var bool
          */
         'enable_javascript' => true,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Enable remote file access
          *
@@ -326,10 +246,6 @@ return [
          * @var bool
          */
         'enable_remote' => false,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * List of allowed remote hosts
          *
@@ -343,18 +259,10 @@ return [
          * @var array|null
          */
         'allowed_remote_hosts' => null,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * A ratio applied to the fonts height to be more like browsers' line height
          */
         'font_height_ratio' => 1.1,
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
         /**
          * Use the HTML5 Lib parser
          *
@@ -364,8 +272,4 @@ return [
          */
         'enable_html5_parser' => true,
     ],
-<<<<<<< HEAD
-
-=======
->>>>>>> da9954f (feat(transaction): add stock check and invoice order)
 ];

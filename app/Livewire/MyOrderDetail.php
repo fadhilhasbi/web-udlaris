@@ -22,6 +22,7 @@ class MyOrderDetail extends Component
         $order_items = OrderItem::with('product')->where('order_id', $this->order_id)->get();
         $address = Address::where('order_id', $this->order_id)->first();
         $order = Order::where('id', $this->order_id)->first();
+        $order->working_time;  // Ambil working_time dari order
 
         // Ambil produk kustom dari cookies
         $customProducts = [];
